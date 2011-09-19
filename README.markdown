@@ -65,7 +65,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt`, but note
 
 * Floppy disks are obsolete. You can boot Gavin from any disk
 * You need very old gcc 3.3.5
-* If you cannot compile Gavin use precompiled orig/kernel and orig/fs.tar from this package for real hardware and orig/qemu-kernel and orig/qemu-fs.tar for Qemu
+* If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and orig/qemu-kernel and orig/qemu-fs.tar for Qemu
 
 
 
