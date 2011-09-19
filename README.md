@@ -44,12 +44,13 @@ In 2011 I deobfuscated this code and added to it comments. For example, this is 
 What is this package?
 ---------------------
 This package contents two thing:
+
 * Some files which can help you to run original Gavin. They is in directory `orig`.
 * Deobfuscated Gavin. It is in directory `deobfuscated`
 
 How to run original Gavin?
 --------------------------
-Download [Original Gavin from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (this is winners of IOCCC 2004, so it content not only Gavin, but also other programs).
+Download [original Gavin from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (this is winners of IOCCC 2004, so it content not only Gavin, but also other programs).
 
 Then follow instructions in files `gavin.hint` and `gavin_install.txt`, but note following:
 
