@@ -1,5 +1,4 @@
 Gavin is multitasking OS with mouse support. But its code has size 3.5 K!
 But mouse must be PS/2 mouse.
-== H1 ==
-[http://www.github.com]
-http://upload.wikimedia.org/wikipedia/mediawiki/a/a9/Example.jpg
+
+[File:Example.jpg]
