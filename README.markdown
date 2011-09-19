@@ -58,7 +58,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt`, but note
 * The most simple way to run Gavin is Qemu. At first try to use Qemu, then -- other methods
 * To boot from Qemu type `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`
 * You will get strange colors in Qemu
-* LILO is obsolete. You don't need files `lilo.conf` and `boot.b`. Use any modern Linux loader. I recommend you GRUB 2. If you have GRUB 2, press "c" while booting and type:
+* LILO is obsolete. You don't need files `lilo.conf` and `boot.b`. Use any modern Linux loader. I would recommend GRUB 2. If you have GRUB 2, press "c" while booting and type:
 
 	linux16 /path/to/kernel
 	initrd16 /path/to/fs.tar
@@ -66,7 +66,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt`, but note
 
 * Floppy disks are obsolete. You can boot Gavin from any disk
 * You need very old gcc 3.3.5
-* If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and orig/qemu-kernel and orig/qemu-fs.tar for Qemu
+* If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and `orig/qemu-kernel` and `orig/qemu-fs.tar` for Qemu
 
 
 How to run deobfuscated Gavin (based on Gavin's comments)?
@@ -91,13 +91,13 @@ graphics card (has been tested on Nvidia, Matrox, and SiS cards).
 then type `linux16 (hd0,1)/<PATH>/kernel` (substituting appropriate harddrive/partition numbers & path), then `initrd16 (hd0,1)/<PATH>/fs.tar`, and finally `boot`.
 
 * Assuming the OS has booted, what can you do now? Well, start by trying `sh`, to open another shell. Then, try `vi mkkernel.c`, to open up the kernel source in a text file viewer
-(up/down or pgup/pgdown to scroll). Also try `prim`, it is written by the IOCCC judges. [Note that the provided applications, `sh` and `vi` both have windows of the same size, and that open in the top left corner of the screen,
-so you may need drag the windows around a bit to tell them apart.]
+(up/down or pgup/pgdown to scroll). Also try `prim`, it is written by the IOCCC judges. Note that the provided applications, `sh` and `vi` both have windows of the same size, and that open in the top left corner of the screen,
+so you may need drag the windows around a bit to tell them apart.
 * To shut down - just hit the power button. :-)
 
 
-How deobfuscated Gavin works (based..?
------------------------------
+How deobfuscated Gavin works (based on Gavin's comments)?
+---------------------------------------------------------
 This is a 32-bit multitasking operating system for x86 computers,
 with GUI and filesystem, support for loading and executing user
 applications in elf binary format, with ps2 mouse and keyboard drivers,
@@ -116,12 +116,8 @@ the application's own use.
 The program compiles into a tool to build a kernel image,
 so having built the program, the makefile will run it,
 piping the output into a file called `kernel`.
-The makefile will then proceed to build a root filesystem image.
-This involves rebuilding the program with different compiler flags,
-then building a tar file containing the resulting programs
+The makefile will then proceed to build a root filesystem image -- a tar file containing the resulting programs
 (the filesystem format supported by the OS is the tar-file format).
-
-For further usage information see `gavin_install.txt`.
 
 The filenames `vi` and `sh` are significant, and should not be changed.
 
@@ -145,7 +141,7 @@ but gets confused by fancy things like "shift" or "backspace".
 
 In the text-file viewer, `vi`, the up/down and pgup/pgdn keys
 scroll up or down by one line.  There is nothing to stop you
-[from] scrolling above the top of the file, and pressing any
+from scrolling above the top of the file, and pressing any
 other keys may have an undefined effect.
 
 The x86 is bootstrapped into 32bit mode in 6 instructions,
@@ -163,32 +159,22 @@ the keyboard & mouse to be driven from C code).
 Porting to another architecture should be relatively easy* -
 the string simply needs be replaced with one containing
 data & code suitable for the new target platform.
-Accesses to data in the string are made relative to the define `V`,
+Accesses to data in the string are made relative to the define `START`,
 so these may need updating as appropriate (0x90200 is the address
 at which a Linux bootloader loads an x86 kernel image).
 
 * ;-)
 
 
-
-
-
-links
-
-
-
-первое лицо, третье и т д
-
-
 Authors
 -------
-Gavin Barraclough
+Gavin Barraclough,
 Flat 20, 83 Newton Street,
 Manchester,
 M1 1EP,
 U.K.
 
-Askar Safin <safinaskar@mail.ru>
+Askar Safin <safinaskar@mail.ru>,
 Russia
 
 
