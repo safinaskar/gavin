@@ -18,7 +18,7 @@ Then Gavin sent OS to [IOCCC](http://www.ioccc.org/) (the International Obfuscat
 			U (Y (t + 28) + j / 8 + 64 * Y (t + 20)), 0);
 	}
 
-In 2011 I deobfuscated this code and added to it comments. For example, this is same code:
+In 2011 I deobfuscated this code and added comments to it. For example, this is same code:
 
 	case msg_render:
 		/* This code draws content of window (black frame, white area and text) */
@@ -43,15 +43,15 @@ In 2011 I deobfuscated this code and added to it comments. For example, this is 
 
 What is this package?
 ---------------------
-This package contents two thing:
+This package contents two things:
 
-* Some files which can help you to run original Gavin. They is in directory `orig`.
+* Some files which can help you to run original Gavin. They are in the directory `orig`
 * Deobfuscated Gavin. It is in directory `deobfuscated`
 
 
 How to run original Gavin?
 --------------------------
-Download [original Gavin from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (this is winners of IOCCC 2004, so it content not only Gavin, but also other programs).
+Download [original Gavin from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (there are winners of the IOCCC 2004).
 
 Then follow instructions in files `gavin.hint` and `gavin_install.txt`, but note following:
 
@@ -85,9 +85,11 @@ through loading the OS, with no nasty side-effects.
 Minimum RAM is something like 32MB. PS2 mouse & keyboard required - no USB I'm afraid, and the keyboard map is for a UK keyboard. Uses Vesa VBE 3.0, so should work on any modern
 graphics card (has been tested on Nvidia, Matrox, and SiS cards).
 * Now you need to use virtual machine (this is simplest way) or a bootloader to load the OS.
+
 ** I recommend you Qemu. Just type command `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`. But in this case you must compile package with `make QEMU=1`
 ** If you run GRUB 2, then at the boot menu simply hit "c" to get a console,
 then type `linux16 (hd0,1)/<PATH>/kernel` (substituting appropriate harddrive/partition numbers & path), then `initrd16 (hd0,1)/<PATH>/fs.tar`, and finally `boot`.
+
 * Assuming the OS has booted, what can you do now? Well, start by trying `sh`, to open another shell. Then, try `vi mkkernel.c`, to open up the kernel source in a text file viewer
 (up/down or pgup/pgdown to scroll). Also try `prim`, it is written by the IOCCC judges. [Note that the provided applications, `sh` and `vi` both have windows of the same size, and that open in the top left corner of the screen,
 so you may need drag the windows around a bit to tell them apart.]
@@ -174,6 +176,8 @@ at which a Linux bootloader loads an x86 kernel image).
 links
 
 
+
+первое лицо, третье и т д
 
 
 Authors
