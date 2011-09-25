@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
 		memory_end = (void *)0x1100800;
 		head_task = 0;
 
-		/* Setting entry point for system calls */
+		/* Setting entry point for system calls. START + 208 is end of huge string and begin of code of `main' function */
 		*(int *)(START) = START + 208 + ((int)syscall - (int)main);
 
 		int mouse = (SCREEN_HEIGHT / 2) * SCREEN_WIDTH + SCREEN_WIDTH / 2; /* Position of center of `X' */
@@ -80,9 +80,9 @@ int main(int argc, char *argv[]){
 		draw_all(mouse); /* Initial screen update */
 
 		for(;;){
-			int in_100_returned;
+			signed char in_100_returned;
 			while(((in_100_returned = (*in)(100, 0, 0)) & 3) == 0);
-			int in_96_returned = (*in)(96, 0, 0);
+			signed char in_96_returned = (*in)(96, 0, 0);
 
 			if(in_100_returned & 32){
 				int moving = 0; /* We are moving some window */
@@ -108,10 +108,9 @@ int main(int argc, char *argv[]){
 				}
 
 				while(((*in)(100, 0, 0) & 3) == 0);
-				in_96_returned = (*in)(96, 0, 0);
 
 				{
-					int offset = *(signed char *)(&in_96_returned);
+					int offset = (signed char)(*in)(96, 0, 0);
 					mouse += offset;
 					if(moving){
 						head_task->begin += offset;
@@ -119,10 +118,9 @@ int main(int argc, char *argv[]){
 				}
 
 				while(((*in)(100, 0, 0) & 3) == 0);
-				in_96_returned = (*in)(96, 0, 0);
 
 				{
-					int offset = *(signed char *)(&in_96_returned) * SCREEN_WIDTH;
+					int offset = (signed char)(*in)(96, 0, 0) * SCREEN_WIDTH;
 					mouse -= offset;
 					if(moving){
 						head_task->begin -= offset;
@@ -133,6 +131,7 @@ int main(int argc, char *argv[]){
 			}else if((in_96_returned & 128) == 0){
 				/* Keyboard */
 
+				/* in_96_returned & 63 is hardware key code. For example, `q' has code 16, 'w' -- 17, 'e' -- 18 */
 				/* We look at keybord layout which is in the huge string */
 				(*head_task->handler)(head_task, msg_key, *(char *)(START + 131 + (in_96_returned & 63)));
 
@@ -147,7 +146,11 @@ int main(int argc, char *argv[]){
 			putchar(0);
 		}
 
-		/* The huge string contents some machine code, keyboard layout and (maybe) something else */
+		/*
+		 * The huge string contents machine code and data.
+		 * The machine code uses hardware ports, for example 10h for graphical programming.
+		 * Also CPU is switched to 32-bit protected mode (lidt/lgdt/lmsw), but kernel and applications use same address space
+		 */
 		const char huge_string[] =
 			/* START - 16  */ "\000\010\020\001\000\000\000\000"
 			/* START - 8   */ "\131\132\122\121\354\303\125\252" /* `in' function */
@@ -170,6 +173,7 @@ int main(int argc, char *argv[]){
 			putchar(huge_string[i]);
 		}
 
+		/* We write our code to stdout */
 		for(int i = 0; i != 3888; ++i){
 			putchar(*(char *)((int)main + (int)i));
 		}
@@ -180,7 +184,8 @@ int main(int argc, char *argv[]){
 
 /* Draws window `task' and all next windows recursively */
 void draw_task(char *dest, struct task_t *task){
-	/* Deob. from here */if(task != 0){
+	if(task != 0){
+		/* We draw front task last */
 		draw_task(dest, task->next);
 
 		draw_rectangle(dest + task->begin, 0, 0, task->size / SCREEN_WIDTH + 1, task->size % SCREEN_WIDTH,     BLACK);
@@ -199,7 +204,7 @@ void draw_task(char *dest, struct task_t *task){
 }
 
 void draw_all(int mouse){
-	char *tmp_video_memory = (char *)(1 << 24);
+	char *tmp_video_memory = (char *)0x1000000;
 
 	for(int i = 0; i != SCREEN_HEIGHT * SCREEN_WIDTH; ++i){
 		tmp_video_memory[i] = CYAN;
@@ -209,6 +214,7 @@ void draw_all(int mouse){
 	draw_symbol(tmp_video_memory + mouse - (SYMBOL_HEIGHT / 2 * SCREEN_WIDTH + SYMBOL_WIDTH / 2), 'X', BLACK);
 
 	for(int i = 0; i != SCREEN_HEIGHT * SCREEN_WIDTH; ++i){
+		/* Now we write to real video memory */
 		*(*(char **)(0x11028) + i) = tmp_video_memory[i];
 	}
 }
@@ -232,10 +238,11 @@ int syscall(int arg, enum syscallnum_t syscallnum){
 			}
 		case SYS_create_process:
 			{
-				char *fd = (char *)syscall(arg, SYS_open);
+				const char *fd = (char *)syscall(arg, SYS_open);
+
 				if(*fd == 0){
-					/* file not found */
-					break;
+					/* File not found */
+					return 0;
 				}
 
 				const char *cmdline = (const char *)arg;
@@ -249,27 +256,31 @@ int syscall(int arg, enum syscallnum_t syscallnum){
 					task->cmdline[j] = cmdline[j];
 				}
 
-				int data = (int)(fd + TAR_DATA_OFFSET);
-				int a = data + *(int *)(data + 32);
-				while(*(int *)(a + 12) != *(int *)(data + 24)){
+				/* Parsing ELF */
+				const char *data = fd + TAR_DATA_OFFSET;
+				int a = *(const int *)(data + 32);
+				while(*(const int *)(data + a + 12) != *(const int *)(data + 24)){
 					a += 40;
 				}
-				task->handler = (msghandler_t)(data + *(int *)(a + 16));
+				task->handler = (msghandler_t)(data + *(int *)(data + a + 16));
 				(*task->handler)(task, msg_init, 0);
 				return 0; /* Return value of create_process is ignored */
 			}
 		case SYS_open:
 			{
+				/* If file not found, we will return pointer to the end of tar and *fd will be equal to 0 */
 				/* Bootloader puts pointer of initramfs to START + 24 */
 				char *fd = *(char *const *)(START + 24);
 				const char *file_name = (const char *)arg;
 				for(;;){
+					/* Cheching file name */
 					for(int i = 0;; ++i){
 						if(fd[i] == 0){
 							return (int)fd;
 						}
 						if(fd[i] != file_name[i])break;
 					}
+
 					fd += (syscall((int)fd, SYS_file_size) + 1023) / 512 * 512;
 				}
 			}

@@ -1,10 +1,10 @@
-CC = cc
+CC = gcc
 LD = ld
 
 # Older versions of GCC have a bug in -O2 optimization, hence -O1
 CFLAGS = -O1
 
-QEMU =
+QEMU = 0
 MY_FLAGS = -std=c99 -DQEMU=$(QEMU)
 FS_TAR = sh vi prim mkkernel.c sh.c common.h common.c
 

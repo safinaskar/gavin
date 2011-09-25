@@ -18,7 +18,7 @@ Then Gavin sent OS to [IOCCC](http://www.ioccc.org/) (the International Obfuscat
 			U (Y (t + 28) + j / 8 + 64 * Y (t + 20)), 0);
 	}
 
-In 2011 I deobfuscated this code and added comments to it. For example, this is same code:
+In 2011 this code was deobfuscated and commented. For example, this is same code:
 
 	case msg_render:
 		/* This code draws content of window (black frame, white area and text) */
@@ -43,7 +43,7 @@ In 2011 I deobfuscated this code and added comments to it. For example, this is 
 
 What is this package?
 ---------------------
-This package contents two things:
+This package consists of all information about Gavin you want to know. It contents two things:
 
 * Some files which can help you to run original Gavin. They are in the directory `orig`
 * Deobfuscated Gavin. It is in directory `deobfuscated`
@@ -56,7 +56,7 @@ Download [original Gavin from the IOCCC site](http://www.ioccc.org/2004/2004.tar
 Then follow instructions in files `gavin.hint` and `gavin_install.txt`, but note following:
 
 * The most simple way to run Gavin is Qemu. At first try to use Qemu, then -- other methods
-* To boot from Qemu type `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`
+* To boot from Qemu type `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null` (of course, you need to build Gavin first)
 * You will get strange colors in Qemu
 * LILO is obsolete. You don't need files `lilo.conf` and `boot.b`. Use any modern Linux loader. I would recommend GRUB 2. If you have GRUB 2, press "c" while booting and type:
 
@@ -96,86 +96,18 @@ so you may need drag the windows around a bit to tell them apart.
 * To shut down - just hit the power button. :-)
 
 
-How deobfuscated Gavin works (based on Gavin's comments)?
----------------------------------------------------------
-This is a 32-bit multitasking operating system for x86 computers,
-with GUI and filesystem, support for loading and executing user
-applications in elf binary format, with ps2 mouse and keyboard drivers,
-and vesa graphics.  And a command shell.  And an application -
-a simple text-file viewer.
-
-The OS has ended up as a traditional monolith with one entry point
-for syscalls, with apps treated as cooperative-multitasking tasks
-that can be sent different messages (e.g. "initialize", "key hit",
-"render to buffer") through their main entry point, and which will
-return control to the OS having performed the necessary work.
-Applications are are passed a pointer to their task structure,
-which is partially defined by the OS, and partially for
-the application's own use.
-
-The program compiles into a tool to build a kernel image,
-so having built the program, the makefile will run it,
-piping the output into a file called `kernel`.
-The makefile will then proceed to build a root filesystem image -- a tar file containing the resulting programs
-(the filesystem format supported by the OS is the tar-file format).
-
-The filenames `vi` and `sh` are significant, and should not be changed.
-
-Known "features".
-
-Known issues are really too plentiful to list.
-
-If the mouse pointer goes off the left hand side of the screen
-it will reappear on the right, and vice-versa.
-If it goes off the top or bottom, it will go and corrupt some memory.
-
-The file system is kinda optimistic about matching names, so,
-for example if you type the command `shell` into a command-line
-it will execute the program `sh` - close enough a match for it.
-
-The elf binaries are not loaded at the correct address,
-and their entry point must be the start address of the text segment.
-
-The keyboard driver can cope with the basic alpha-numeric keys,
-but gets confused by fancy things like "shift" or "backspace".
-
-In the text-file viewer, `vi`, the up/down and pgup/pgdn keys
-scroll up or down by one line.  There is nothing to stop you
-from scrolling above the top of the file, and pressing any
-other keys may have an undefined effect.
-
-The x86 is bootstrapped into 32bit mode in 6 instructions,
-with 4 more to set up data/stack segments and a stack-pointer
-to allow C code to be run.  On top of this there are also about
-a dozen instructions to switch the video card into graphics mode.
-All in all, a relatively tiny number of instructions next to
-the size of the C program.  Also, the string is mostly composed
-of data - a Linux-esque kernel header for the bootloader,
-protected mode descriptor tables, keyboard maps, etc.
-(I should also mention that it contains mini functions
-to perform an x86 "in" and "out" instruction - to allow
-the keyboard & mouse to be driven from C code).
-
-Porting to another architecture should be relatively easy* -
-the string simply needs be replaced with one containing
-data & code suitable for the new target platform.
-Accesses to data in the string are made relative to the define `START`,
-so these may need updating as appropriate (0x90200 is the address
-at which a Linux bootloader loads an x86 kernel image).
-
-* ;-)
+How deobfuscated Gavin works?
+-----------------------------
+See deobfuscated/README
 
 
 Authors
 -------
-Gavin Barraclough,
-Flat 20, 83 Newton Street,
-Manchester,
-M1 1EP,
-U.K.
+Gavin Barraclough, Flat 20, 83 Newton Street, Manchester, M1 1EP, U.K. -- creation of OS
 
-Askar Safin <safinaskar@mail.ru>,
-Russia
+IOCCC 2004 judges -- writing "prim" program
+
+Askar Safin <safinaskar@mail.ru>, Russia -- deobfuscation
 
 
 Copyright
@@ -183,5 +115,5 @@ Copyright
 Copyright (C) 2004, Landon Curt Noll, Simon Cooper, Peter Seebach
 and Leonid A. Broukhis. All Rights Reserved. Permission for personal,
 educational or non-profit use is granted provided this copyright and
-notice are included in its entirety and remains unaltered.  All other
+notice are included in its entirety and remains unaltered. All other
 uses must receive prior permission from the contest judges.

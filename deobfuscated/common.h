@@ -12,16 +12,7 @@
 #define SYMBOL_HEIGHT 16
 #define SYMBOL_WIDTH 8
 
-#ifndef QEMU
-# define BLACK      0
-# define DARK_GRAY  20
-# define GRAY       24
-# define LIGHT_GRAY 28
-# define WHITE      31
-
-# define CYAN       125
-# define BLUE       176
-#else
+#if(QEMU == 1)
 # define BLACK      0
 # define DARK_GRAY  0x38
 # define GRAY       7
@@ -30,6 +21,15 @@
 
 # define CYAN       3
 # define BLUE       8
+#else
+# define BLACK      0
+# define DARK_GRAY  20
+# define GRAY       24
+# define LIGHT_GRAY 28
+# define WHITE      31
+
+# define CYAN       125
+# define BLUE       176
 #endif
 
 struct task_t;
@@ -68,7 +68,7 @@ enum syscallnum_t{
 	/*
 	 * Opens file. Takes file name and returns file descriptor.
 	 * In fact, file descriptor is pointer to file structure in tar archive, which consists of some meta-information and file content (see TAR_DATA_OFFSET below).
-	 * You can read file and write to it (of course, you will write to memory), but sh and vi don't use writing feature.
+	 * You can write to file (of course, you will write to memory, all changes are not saved), but sh and vi don't use this feature.
 	 */
 	SYS_open
 };
