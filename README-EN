@@ -2,7 +2,7 @@
 
 What is Gavin?
 --------------
-In 2004 Gavin Barraclough created multitasking operating system with GUI, filesystem and mouse support (the OS has no name, so I will call it "Gavin").
+In 2004 Gavin Barraclough created multitasking operating system with GUI, filesystem and mouse support (the OS has no name, so I will call it Gavin).
 It is written in C, it has only one source file and this file has size 3.5 kilobytes!
 Then Gavin sent OS to [IOCCC](http://www.ioccc.org/) (the International Obfuscated C Code Contest) and won. Of course, code is very obfuscated, for example:
 
@@ -43,7 +43,7 @@ In 2011 this code was deobfuscated and commented. For example, this is same code
 
 What is this package?
 ---------------------
-This package consists of all information about Gavin you want to know. It contents two things:
+This package consists of all information about Gavin you want to know, namely:
 
 * Some files which can help you to run original Gavin. They are in the directory `orig`
 * Deobfuscated Gavin. It is in directory `deobfuscated`
