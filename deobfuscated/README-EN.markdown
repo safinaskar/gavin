@@ -1,6 +1,5 @@
 Introduction (based on Gavin's comments)
 ----------------------------------------
-
 This is a 32-bit multitasking operating system for x86 computers,
 with GUI and filesystem, support for loading and executing user
 applications in elf binary format, with ps2 mouse and keyboard drivers,
@@ -19,7 +18,7 @@ the application's own use.
 The program compiles into a tool to build a kernel image,
 so having built the program, the makefile will run it,
 piping the output into a file called `kernel`.
-The makefile will then proceed to build a root filesystem image -- a tar file containing the resulting programs
+The makefile will then proceed to build a root filesystem image -- a tar file
 (the filesystem format supported by the OS is the tar-file format).
 
 The filenames `vi` and `sh` are significant, and should not be changed.
@@ -34,13 +33,13 @@ If it goes off the top or bottom, it will go and corrupt some memory.
 
 The file system is kinda optimistic about matching names, so,
 for example if you type the command `shell` into a command-line
-it will execute the program `sh` - close enough a match for it.
+it will execute the program `sh` -- close enough a match for it.
 
 The elf binaries are not loaded at the correct address,
 and their entry point must be the start address of the text segment.
 
 The keyboard driver can cope with the basic alpha-numeric keys,
-but gets confused by fancy things like "shift" or "backspace".
+but gets confused by fancy things like `Shift` or `Backspace`.
 
 In the text-file viewer, `vi`, the up/down and pgup/pgdn keys
 scroll up or down by one line or by one screen. There is nothing to stop you
@@ -53,17 +52,17 @@ to allow C code to be run. On top of this there are also about
 a dozen instructions to switch the video card into graphics mode.
 All in all, a relatively tiny number of instructions next to
 the size of the C program. Also, the string is mostly composed
-of data - a Linux-esque kernel header for the bootloader,
+of data -- a Linux-esque kernel header for the bootloader,
 protected mode descriptor tables, keyboard maps, etc.
 (I should also mention that it contains mini functions
-to perform an x86 "in" and "out" instruction - to allow
+to perform an x86 `in` and `out` instruction -- to allow
 the keyboard & mouse to be driven from C code).
 
-Porting to another architecture should be relatively easy* -
+Porting to another architecture should be relatively easy* --
 the string simply needs be replaced with one containing
 data & code suitable for the new target platform.
 Accesses to data in the string are made relative to the define `START`,
-so these may need updating as appropriate (0x90200 is the address
+so these may need updating as appropriate (`0x90200` is the address
 at which a Linux bootloader loads an x86 kernel image).
 
 * ;-)
@@ -76,13 +75,13 @@ OS consists of two components:
 * Kernel
 * File system
 
-OS supports only one file system: tar archive, which is loaded as initrd (or initramfs, or initial ramdisk). Gavin cannot access to hard disk.
-Kernel places in the file "kernel", file system -- in "fs.tar". fs.tar contents "sh" (shell), "vi" (text viewer), "prim" (prime number generator, written by IOCCC judges,
-there is no sources) and some text files, which can be browsed by "vi".
+OS supports only one file system type: tar archive, which is loaded as initrd (or initramfs, or initial ramdisk). Gavin cannot access to hard disk.
+Kernel places in the file `kernel`, file system -- in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator, written by IOCCC judges,
+there is no sources) and some text files, which can be browsed by `vi`.
 
-Originally OS had only one source file -- "prog.c". Then IOCCC judges renamed it to "gavin.c". Then it was splited into 4 files:
+Originally OS had only one source file -- `prog.c`. Then IOCCC judges renamed it to `gavin.c`. Then it was splited into 4 files:
 
-* `common.h` and `common.c` -- some common code for other parts
+* `common.h` and `common.c` -- some common code
 * `mkkernel.c` -- kernel
 * `sh.c` -- shell and text viewer
 
@@ -90,21 +89,21 @@ This is stages of building Gavin:
 
 * `cc -c common.c`
 * `cc -c mkkernel.c`
-* `cc -o mkkernel mkkernel.c common.o`. Now `mkkernel` is typical GNU/Linux application. It depends on libc
+* `cc -o mkkernel mkkernel.c common.o`. Now `mkkernel` is typical GNU/Linux application. It depends on `libc`
 * `./mkkernel > kernel`. Now `kernel` is kernel of Gavin
 * `cc -c sh.c`
-* `ld -s -o sh sh.o common.o`. Now `sh` is Gavin application. It doesn't content libc.
-* `cp sh vi`. `sh` and `vi` are identical. Their behavior depends on the name.
+* `ld -s -o sh sh.o common.o`. Now `sh` is Gavin application. It doesn't depend on `libc`
+* `cp sh vi`. `sh` and `vi` are identical. Their behavior depends on the name
 * `tar -cf fs.tar sh vi prim ...`
 
-`mkkernel` (of course) has entry point `_start` (which placed in libc). `_start` permorms some initialization, for example. it opens stdout. Then it call `main` (from `mkkernel.c`).
-`main` checks `argc == 0`. If `argc != 0` we are in GNU/Linux. In this case we write kernel to stdout. At first we write some machine code and other data which placed in string
-called "huge string". Then we write our code directly from memory. So `kernel` will content a large piece of code from mkkernel. This meant that kernel will content same `main` function.
+`mkkernel` (of course) has entry point `_start` (which placed in `libc`). `_start` permorms some initialization, for example. it opens `stdout`. Then it call `main` (from `mkkernel.c`).
+`main` checks `argc == 0`. If `argc != 0` we are in GNU/Linux. In this case we write kernel code to stdout. At first we write some machine code and other data which placed in string
+called "huge string". Then we write `mkkernel` code directly from memory. So `kernel` will content a large piece of code from `mkkernel`. This meant that kernel will content same `main` function.
 
 Let's assume we are booting kernel. At first kernel executes the machine code. Then it executes the code from `main` (now `main` is entry point to C code, not `_start`).
-And it checks `argc == 0`, too. But now we are on a real hardware, so `argc` really equals to zero. Therefore we perform kernel booting sequence.
+And it again checks `argc == 0`. But now we are on a real hardware, so `argc` really equals to zero. Therefore we perform kernel booting sequence.
 
-START is address at which a Linux bootloader loads a kernel. So, we can access huge string by writing expressions like *(char *)(START + 131).
+`START` is address at which a Linux bootloader loads a kernel. So, we can access huge string by writing expressions like `*(char *)(START + 131)`.
 
 
 System calls and messages
@@ -139,22 +138,18 @@ coordinate of begin of window, i. e. top left corner. Field `size` is size of a 
 So, if window corners has coordinates (X1, Y1) and (X2, Y2), we will have following formulas:
 
 	begin = Y1 * SCREEN_WIDTH + X1
-	end = (Y2 - Y1) * SCREEN_WIDTH + X2 - X1 + 1
+	size = (Y2 - Y1) * SCREEN_WIDTH + X2 - X1 + 1
 
 
 Other notes
 -----------
 * Sometimes if I add some variable to kernel code, it will not work. But if I tell to compiler to optimize harder, it will work again. I think kernel's static memory is limited
 * Deobfuscated Gavin is binary compatible with original. So you can run origianal `fs.tar' on top of the deobfuscated `kernel' (and kernel on top of the file system)
-* There is no sources of `prim', so I cannot fix strange Qemu colors
+* There is no sources of `prim', so I cannot fix strange Qemu colors in it
+* `rendering` in code means rendering to a temporary buffer and `drawing` meand real drawing to a screen
 * I'm not sure OS works with LILO
 * Run `make QEMU=1' if you want to get right colors in Qemu
-
-
-Прочее
-------
-* Я не уверен, что система работает с LILO
-* Запустите `make QEMU=1' чтобы в Qemu отображались правильные цвета
+* Unused memory contents random data (not zeros)
 
 
 Bug fixes
@@ -163,11 +158,3 @@ Bug fixes
 * You don't need to move the mouse to trigger the initial screen update in Qemu
 * vi doesn't fail because of non-ASCII charasters
 * vi works correctly with big files
-
-
-Исправления ошибок
-------------------
-* PgUp и PgDn делают то, что и должны
-* Не нужно двигать мышь сразу после запуска системы для стартового обновления экрана в Qemu
-* vi не рушится от не-ASCII символов
-* vi корректно работает с большими файлами

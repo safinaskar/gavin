@@ -64,25 +64,25 @@ void _start(struct task_t *my_task, enum msgnum_t msgnum, int arg){
 			}
 			break;
 		case msg_render:
-			/* This code draws content of window (black frame, white area and text) */
+			/* This code renders content of window (black frame, white area and text) */
 
 			{
-				char *dest = (char *)arg;
+				char *buffer = (char *)arg;
 
 				if(shell){
 					(*content)[(LINES - 1) * COLUMNS] = '>';
 				}
 
 				/* Frame */
-				draw_rectangle(dest + my_task->begin, TITLE_HEIGHT + 8, 4,            LINES * SYMBOL_HEIGHT + 3, COLUMNS * SYMBOL_WIDTH + 2, BLACK);
+				render_rectangle(buffer + my_task->begin, TITLE_HEIGHT + 8, 4,            LINES * SYMBOL_HEIGHT + 3, COLUMNS * SYMBOL_WIDTH + 2, BLACK);
 
 				/* Area */
-				draw_rectangle(dest + my_task->begin, CONTENT_TOP,      CONTENT_LEFT, LINES * SYMBOL_HEIGHT + 1, COLUMNS * SYMBOL_WIDTH,     WHITE);
+				render_rectangle(buffer + my_task->begin, CONTENT_TOP,      CONTENT_LEFT, LINES * SYMBOL_HEIGHT + 1, COLUMNS * SYMBOL_WIDTH,     WHITE);
 
 				/* Text */
 				for(int i = 0; i != LINES; ++i){
 					for(int j = 0; j != COLUMNS; ++j){
-						draw_symbol(dest + my_task->begin + (CONTENT_TOP + i * SYMBOL_HEIGHT) * SCREEN_WIDTH + CONTENT_LEFT + j * SYMBOL_WIDTH, (*content)[(*line + i) * COLUMNS + j], BLACK);
+						render_symbol(buffer + my_task->begin + (CONTENT_TOP + i * SYMBOL_HEIGHT) * SCREEN_WIDTH + CONTENT_LEFT + j * SYMBOL_WIDTH, (*content)[(*line + i) * COLUMNS + j], BLACK);
 					}
 				}
 			}

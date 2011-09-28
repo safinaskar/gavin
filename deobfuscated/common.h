@@ -12,7 +12,7 @@
 #define SYMBOL_HEIGHT 16
 #define SYMBOL_WIDTH 8
 
-#if(QEMU == 1)
+#if (QEMU == 1)
 # define BLACK      0
 # define DARK_GRAY  0x38
 # define GRAY       7
@@ -37,7 +37,7 @@ struct task_t;
 /* Message numbers */
 enum msgnum_t{
 	msg_init = 1, /* Initialize process, `arg' (see below) is ignored */
-	msg_render, /* Draw content of window, `arg' is pointer to memory which we want draw to */
+	msg_render, /* Render content of window to a buffer, `arg' is the buffer */
 	msg_key /* Key is pressed, `arg' is key */
 };
 
@@ -76,6 +76,7 @@ enum syscallnum_t{
 /* If `fd' is file descriptor, `fd + TAR_DATA_OFFSET' is pointer to file content */
 #define TAR_DATA_OFFSET 512
 
-/* `dest' is pointer to memory which we want to draw to */
-void draw_rectangle(char *dest, int top, int left, int height, int width, char color);
-void draw_symbol(char *dest, char symbol, char color);
+/* `buffer' is pointer to memory which we want to render to */
+/* render_rectangle(b, t, l, h, w, c) and render_rectangle(b + t * SCREEN_WIDTH + l, 0, 0, h, w, c) are the same */
+void render_rectangle(char *buffer, int top, int left, int height, int width, char color);
+void render_symbol(char *buffer, char symbol, char color);

@@ -182,40 +182,40 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
-/* Draws window `task' and all next windows recursively */
-void draw_task(char *dest, struct task_t *task){
+/* Renders window `task' and all next windows recursively */
+void render_task(char *buffer, struct task_t *task){
 	if(task != 0){
-		/* We draw front task last */
-		draw_task(dest, task->next);
+		/* We render front task last */
+		render_task(buffer, task->next);
 
-		draw_rectangle(dest + task->begin, 0, 0, task->size / SCREEN_WIDTH + 1, task->size % SCREEN_WIDTH,     BLACK);
-		draw_rectangle(dest + task->begin, 1, 1, task->size / SCREEN_WIDTH - 1, task->size % SCREEN_WIDTH - 2, LIGHT_GRAY);
-		draw_rectangle(dest + task->begin, 2, 2, task->size / SCREEN_WIDTH - 2, task->size % SCREEN_WIDTH - 3, DARK_GRAY);
-		draw_rectangle(dest + task->begin, 2, 2, task->size / SCREEN_WIDTH - 3, task->size % SCREEN_WIDTH - 4, GRAY);
-		draw_rectangle(dest + task->begin, 4, 4, TITLE_HEIGHT,                  task->size % SCREEN_WIDTH - 8, BLUE);
+		render_rectangle(buffer + task->begin, 0, 0, task->size / SCREEN_WIDTH + 1, task->size % SCREEN_WIDTH,     BLACK);
+		render_rectangle(buffer + task->begin, 1, 1, task->size / SCREEN_WIDTH - 1, task->size % SCREEN_WIDTH - 2, LIGHT_GRAY);
+		render_rectangle(buffer + task->begin, 2, 2, task->size / SCREEN_WIDTH - 2, task->size % SCREEN_WIDTH - 3, DARK_GRAY);
+		render_rectangle(buffer + task->begin, 2, 2, task->size / SCREEN_WIDTH - 3, task->size % SCREEN_WIDTH - 4, GRAY);
+		render_rectangle(buffer + task->begin, 4, 4, TITLE_HEIGHT,                  task->size % SCREEN_WIDTH - 8, BLUE);
 
 		for(int i = 0; task->cmdline[i] != 0; ++i){
-			draw_symbol(dest + task->begin + 5 * SCREEN_WIDTH + 6 + i * SYMBOL_WIDTH, task->cmdline[i], WHITE);
+			render_symbol(buffer + task->begin + 5 * SCREEN_WIDTH + 6 + i * SYMBOL_WIDTH, task->cmdline[i], WHITE);
 		}
 
-		/* Draw window content */
-		(*task->handler)(task, msg_render, (int)dest);
+		/* Render window content */
+		(*task->handler)(task, msg_render, (int)buffer);
 	}
 }
 
 void draw_all(int mouse){
-	char *tmp_video_memory = (char *)0x1000000;
+	char *buffer = (char *)0x1000000;
 
 	for(int i = 0; i != SCREEN_HEIGHT * SCREEN_WIDTH; ++i){
-		tmp_video_memory[i] = CYAN;
+		buffer[i] = CYAN;
 	}
 
-	draw_task(tmp_video_memory, head_task);
-	draw_symbol(tmp_video_memory + mouse - (SYMBOL_HEIGHT / 2 * SCREEN_WIDTH + SYMBOL_WIDTH / 2), 'X', BLACK);
+	render_task(buffer, head_task);
+	render_symbol(buffer + mouse - (SYMBOL_HEIGHT / 2 * SCREEN_WIDTH + SYMBOL_WIDTH / 2), 'X', BLACK);
 
 	for(int i = 0; i != SCREEN_HEIGHT * SCREEN_WIDTH; ++i){
 		/* Now we write to real video memory */
-		*(*(char **)(0x11028) + i) = tmp_video_memory[i];
+		*(*(char **)(0x11028) + i) = buffer[i];
 	}
 }
 
