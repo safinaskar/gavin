@@ -1,7 +1,7 @@
 ![screenshot.png](https://github.com/safinaskar/gavin/raw/master/deobfuscated/screenshot.png)
 
-[English](README-EN.markdown)
+[English](https://github.com/safinaskar/gavin/blob/master/README-EN.markdown)
 -----------------------------
 
-[Русский](README-RU.markdown)
+[Русский](https://github.com/safinaskar/gavin/blob/master/README-RU.markdown)
 -----------------------------
