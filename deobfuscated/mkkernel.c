@@ -85,7 +85,7 @@ int main(int argc, char *argv[]){
 			signed char in_96_returned = (*in)(96, 0, 0);
 
 			if(in_100_returned & 32){
-				int moving = 0; /* We are moving some window */
+				int moving = 0; /* We are moving some window. In fact, this is boolean variable */
 
 				if(in_96_returned & 1){
 					/* Mouse is down, let's resort windows */
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]){
 
 				/* in_96_returned & 63 is hardware key code. For example, `q' has code 16, 'w' -- 17, 'e' -- 18 */
 				/* We look at keybord layout which is in the huge string */
-				(*head_task->handler)(head_task, msg_key, *(char *)(START + 131 + (in_96_returned & 63)));
+				(*head_task->handler)(head_task, msg_key, *(const char *)(START + 131 + (in_96_returned & 63)));
 
 				draw_all(mouse);
 			}
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]){
 
 		/* We write our code to stdout */
 		for(int i = 0; i != 3888; ++i){
-			putchar(*(char *)((int)main + (int)i));
+			putchar(*(const char *)((int)main + (int)i));
 		}
 	}
 
@@ -215,7 +215,7 @@ void draw_all(int mouse){
 
 	for(int i = 0; i != SCREEN_HEIGHT * SCREEN_WIDTH; ++i){
 		/* Now we write to real video memory */
-		*(*(char **)(0x11028) + i) = buffer[i];
+		*(*(char *const *)(0x11028) + i) = buffer[i];
 	}
 }
 
@@ -238,7 +238,7 @@ int syscall(int arg, enum syscallnum_t syscallnum){
 			}
 		case SYS_create_process:
 			{
-				const char *fd = (char *)syscall(arg, SYS_open);
+				const char *fd = (const char *)syscall(arg, SYS_open);
 
 				if(*fd == 0){
 					/* File not found */
@@ -253,7 +253,7 @@ int syscall(int arg, enum syscallnum_t syscallnum){
 
 				task->cmdline = task->real_cmdline;
 				for(int j = 0; j != 100; j++){
-					task->cmdline[j] = cmdline[j];
+					task->real_cmdline[j] = cmdline[j];
 				}
 
 				/* Parsing ELF */
@@ -262,7 +262,7 @@ int syscall(int arg, enum syscallnum_t syscallnum){
 				while(*(const int *)(data + a + 12) != *(const int *)(data + 24)){
 					a += 40;
 				}
-				task->handler = (msghandler_t)(data + *(int *)(data + a + 16));
+				task->handler = (msghandler_t)(data + *(const int *)(data + a + 16));
 				(*task->handler)(task, msg_init, 0);
 				return 0; /* Return value of create_process is ignored */
 			}

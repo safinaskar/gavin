@@ -121,7 +121,7 @@ void _start(struct task_t *my_task, enum msgnum_t msgnum, int arg){
 }
 
 int syscall(int arg, enum syscallnum_t syscallnum){
-	return (**(int(**)(int, enum syscallnum_t syscallnum))START)(arg, syscallnum);
+	return (**(int(*const *)(int, enum syscallnum_t syscallnum))START)(arg, syscallnum);
 }
 
 void *malloc(int size){

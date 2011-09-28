@@ -46,7 +46,7 @@ typedef void (*msghandler_t)(struct task_t *my_task, enum msgnum_t msgnum, int a
 
 struct task_t{
 	msghandler_t handler;
-	char *cmdline; /* cmdline is pointer to field real_cmdline (see below), which really contents command line */
+	const char *cmdline; /* cmdline is pointer to field real_cmdline (see below), which really contents command line */
 	struct task_t *next;
 	int begin; /* Coordinate of left top corner of window */
 	int size; /* Size of window, difference between coordinates of top left and bottom right corners */

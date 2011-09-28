@@ -73,9 +73,9 @@ How to run deobfuscated Gavin (based on Gavin's comments)?
 * First, build the kernel and filesystem (just `make`).
 (You can skip this step because the package contents precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and deobfuscated/qemu-kernel and
 deobfuscated/qemu-fs.tar for Qemu.)
-In short, you need to build this on an x86 Linux machine.
-If you wish to try to compile on an OS other than Linux you may need modify the Makefile to compile `sh` and `vi` using a cross-compiler that produces ELF binaries --
-i.e. a cross-compiler targeting x86 Linux. Also, you need very old version of gcc -- 3.3.5 or similar.
+In short, you need to build this on an x86 GNU/Linux machine.
+If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh` and `vi` using a cross-compiler that produces ELF binaries --
+i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc -- 3.3.5 or similar.
 * Next, find a suitable machine to run the OS on. It should be perfectly safe, and since it does not directly attempt to access any hard disk drives
 (only a ramdisk loaded by the bootloader) it should do no damage to your existing setup, BUT I ACCEPT NO LIABILITY FOR ANY DAMAGE DONE BY THIS PROGRAM.
 Run it at your own risk. The OS has been tested on half a dozen machines or so, and worked on all but one. The failure came in the form of the machine rebooting itself midway
