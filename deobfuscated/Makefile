@@ -18,7 +18,7 @@ kernel: mkkernel
 	./mkkernel > kernel
 mkkernel: mkkernel.o common.o
 	$(CC) -o mkkernel mkkernel.o common.o
-mkkernel.o: mkkernel.c
+mkkernel.o: mkkernel.c common.h
 	$(CC) -c $(CFLAGS) $(MY_FLAGS) mkkernel.c
 
 ####
@@ -29,12 +29,16 @@ vi: sh
 	cp sh vi
 sh: sh.o common.o
 	$(LD) -s -o sh sh.o common.o
-sh.o:
+prim: prim.o common.o
+	$(LD) -s -o prim prim.o common.o
+sh.o: sh.c common.h
 	$(CC) -c $(CFLAGS) $(MY_FLAGS) sh.c
+prim.o: prim.c common.h
+	$(CC) -c $(CFLAGS) $(MY_FLAGS) prim.c
 
 ####
 
-common.o:
+common.o: common.c common.h
 	$(CC) -c $(CFLAGS) $(MY_FLAGS) common.c
 
 ####
