@@ -76,8 +76,7 @@ OS consists of two components:
 * File system
 
 OS supports only one file system type: tar archive, which is loaded as initrd (or initramfs, or initial ramdisk). Gavin cannot access to hard disk.
-Kernel places in the file `kernel`, file system -- in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator, written by IOCCC judges,
-there is no sources) and some text files, which can be browsed by `vi`.
+Kernel places in the file `kernel`, file system -- in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator, written by IOCCC judges) and some text files, which can be browsed by `vi`.
 
 Originally OS had only one source file -- `prog.c`. Then IOCCC judges renamed it to `gavin.c`. Then it was splited into 4 files:
 
@@ -145,7 +144,6 @@ Other notes
 -----------
 * Sometimes if I add some variable to kernel code, it will not work. But if I tell to compiler to optimize harder, it will work again. I think kernel's static memory is limited
 * Deobfuscated Gavin is binary compatible with original. So you can run origianal `fs.tar' on top of the deobfuscated `kernel' (and kernel on top of the file system)
-* There is no sources of `prim', so I cannot fix strange Qemu colors in it
 * `rendering` in code means rendering to a temporary buffer and `drawing` meand real drawing to a screen
 * I'm not sure OS works with LILO
 * Run `make QEMU=1' if you want to get right colors in Qemu
