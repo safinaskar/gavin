@@ -21,8 +21,6 @@ piping the output into a file called `kernel`.
 The makefile will then proceed to build a root filesystem image -- a tar file
 (the filesystem format supported by the OS is the tar-file format).
 
-The filenames `vi` and `sh` are significant, and should not be changed.
-
 Known "features".
 
 Known issues are really too plentiful to list.
@@ -75,27 +73,35 @@ OS consists of two components:
 * Kernel
 * File system
 
-OS supports only one file system type: tar archive, which is loaded as initrd (or initramfs, or initial ramdisk). Gavin cannot access to hard disk.
-Kernel places in the file `kernel`, file system -- in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator, written by IOCCC judges) and some text files, which can be browsed by `vi`.
+OS supports only one file system type: tar archive, which is loaded as initramfs. Gavin cannot access to hard disk.
+Kernel places in the file `kernel`, file system -- in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator) and some text files, which can be browsed by `vi`.
 
-Originally OS had only one source file -- `prog.c`. Then IOCCC judges renamed it to `gavin.c`. Then it was splited into 4 files:
+Originally OS had only one source file -- `prog.c`. Then IOCCC judges renamed it to `gavin.c`. Then it was splited into following files:
 
 * `common.h` and `common.c` -- some common code
 * `mkkernel.c` -- kernel
-* `sh.c` -- shell and text viewer
+* `user.h` and `user.c` -- common code for user application
+* `sh.c` -- shell
+* `vi.c` -- text viewer
+* `prim.c` -- prime numbers generator
 
 This is stages of building Gavin:
 
 * `cc -c common.c`
 * `cc -c mkkernel.c`
+* `cc -c user.c`
+* `cc -c sh.c`
+* `cc -c vi.c`
+* `cc -c prim.c`
+
 * `cc -o mkkernel mkkernel.c common.o`. Now `mkkernel` is typical GNU/Linux application. It depends on `libc`
 * `./mkkernel > kernel`. Now `kernel` is kernel of Gavin
-* `cc -c sh.c`
-* `ld -s -o sh sh.o common.o`. Now `sh` is Gavin application. It doesn't depend on `libc`
-* `cp sh vi`. `sh` and `vi` are identical. Their behavior depends on the name
+* `ld -s -o sh sh.o user.o common.o`. Now `sh` is Gavin application. It doesn't depend on `libc`
+* `ld -s -o vi vi.o user.o common.o`.
+* `ld -s -o prim prim.o user.o common.o`.
 * `tar -cf fs.tar sh vi prim ...`
 
-`mkkernel` (of course) has entry point `_start` (which placed in `libc`). `_start` permorms some initialization, for example. it opens `stdout`. Then it call `main` (from `mkkernel.c`).
+`mkkernel` (of course) has entry point `_start` (which placed in `libc`). `_start` permorms some initialization, for example. it opens `stdout`. Then it call `main` (`main` placed in `mkkernel.c`).
 `main` checks `argc == 0`. If `argc != 0` we are in GNU/Linux. In this case we write kernel code to stdout. At first we write some machine code and other data which placed in string
 called "huge string". Then we write `mkkernel` code directly from memory. So `kernel` will content a large piece of code from `mkkernel`. This meant that kernel will content same `main` function.
 
@@ -156,3 +162,5 @@ Bug fixes
 * You don't need to move the mouse to trigger the initial screen update in Qemu
 * vi doesn't fail because of non-ASCII charasters
 * vi works correctly with big files
+* You will get right colors in Qemu
+* You can name `sh` and `vi` as you want. Names are not significant.

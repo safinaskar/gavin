@@ -6,7 +6,7 @@ CFLAGS = -O1
 
 QEMU = 0
 MY_FLAGS = -std=c99 -DQEMU=$(QEMU)
-FS_TAR = sh vi prim mkkernel.c sh.c common.h common.c
+FS_TAR = sh vi prim $(shell echo *.c *.h)
 
 ####
 
@@ -25,16 +25,23 @@ mkkernel.o: mkkernel.c common.h
 
 fs.tar: $(FS_TAR)
 	tar -cf fs.tar $(FS_TAR)
-vi: sh
-	cp sh vi
-sh: sh.o common.o
-	$(LD) -s -o sh sh.o common.o
-prim: prim.o common.o
-	$(LD) -s -o prim prim.o common.o
-sh.o: sh.c common.h
+
+sh: sh.o user.o common.o
+	$(LD) -s -o sh sh.o user.o common.o
+vi: vi.o user.o common.o
+	$(LD) -s -o vi vi.o user.o common.o
+prim: prim.o user.o common.o
+	$(LD) -s -o prim prim.o user.o common.o
+
+sh.o: sh.c user.h common.h
 	$(CC) -c $(CFLAGS) $(MY_FLAGS) sh.c
-prim.o: prim.c common.h
+vi.o: vi.c user.h common.h
+	$(CC) -c $(CFLAGS) $(MY_FLAGS) vi.c
+prim.o: prim.c user.h common.h
 	$(CC) -c $(CFLAGS) $(MY_FLAGS) prim.c
+
+user.o: user.c user.h common.h
+	$(CC) -c $(CFLAGS) $(MY_FLAGS) user.c
 
 ####
 
@@ -44,4 +51,4 @@ common.o: common.c common.h
 ####
 
 clean:
-	rm -f *.o mkkernel kernel sh vi fs.tar
+	rm -f kernel mkkernel fs.tar sh vi prim *.o

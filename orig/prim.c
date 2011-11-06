@@ -39,6 +39,15 @@ _start (int t, int q, int d)
   	*(char*)n++ = ' ';
   	*(char*)n++ = 'a';
   	*(char*)n++ = 'n';
+  	*(char*)n++ = 'd';
+  	*(char*)n++ = ' ';
+  	*(char*)n++ = 'h';
+  	*(char*)n++ = 'o';
+  	*(char*)n++ = 'l';
+  	*(char*)n++ = 'd';
+  	*(char*)n++ = ' ';
+  	*(char*)n++ = 'a';
+  	*(char*)n++ = 'n';
   	*(char*)n++ = 'y';
   	*(char*)n++ = ' ';
   	*(char*)n++ = 'k';

@@ -66,7 +66,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use r
 * Floppy disks are obsolete. You can boot Gavin from any disk
 * You need very old gcc 3.3.5 or similar
 * If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and `orig/qemu-kernel` and `orig/qemu-fs.tar` for Qemu
-
+* This package content source of `prim` utility in `orig/prim.c` (thanks to IOCCC judges)
 
 How to run deobfuscated Gavin (based on Gavin's comments)?
 ----------------------------------------------------------
@@ -74,7 +74,7 @@ How to run deobfuscated Gavin (based on Gavin's comments)?
 (You can skip this step because the package contents precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and deobfuscated/qemu-kernel and
 deobfuscated/qemu-fs.tar for Qemu.)
 In short, you need to build this on an x86 GNU/Linux machine.
-If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh` and `vi` using a cross-compiler that produces ELF binaries --
+If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh`, `vi` and `prim` using a cross-compiler that produces ELF binaries --
 i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc -- 3.3.5 or similar.
 * Next, find a suitable machine to run the OS on. It should be perfectly safe, and since it does not directly attempt to access any hard disk drives
 (only a ramdisk loaded by the bootloader) it should do no damage to your existing setup, BUT I ACCEPT NO LIABILITY FOR ANY DAMAGE DONE BY THIS PROGRAM.
@@ -90,7 +90,7 @@ graphics card (has been tested on Nvidia, Matrox, and SiS cards).
 then type `linux16 (hd0,1)/<PATH>/kernel` (substituting appropriate harddrive/partition numbers & path), then `initrd16 (hd0,1)/<PATH>/fs.tar`, and finally `boot`.
 
 * Assuming the OS has booted, what can you do now? Well, start by trying `sh`, to open another shell. Then, try `vi mkkernel.c`, to open up the kernel source in a text file viewer
-(up/down or PgUp/PgDown to scroll). Also try `prim`, it is written by the IOCCC judges. Note that all provided applications have windows of the same size, and that open in the top left corner of the screen,
+(up/down or PgUp/PgDown to scroll). Also try `prim`. Note that all provided applications have windows of the same size, and that open in the top left corner of the screen,
 so you may need drag the windows around a bit to tell them apart.
 * To shut down -- just hit the power button. :-)
 
@@ -98,6 +98,11 @@ so you may need drag the windows around a bit to tell them apart.
 How deobfuscated Gavin works?
 -----------------------------
 See `deobfuscated/README-EN`.
+
+
+Links
+-----
+* http://pdos.csail.mit.edu/6.828/2011/xv6.html - XV6, simple UNIX-like OS. Its size is 277 kilobytes! It is Gavin x 78!
 
 
 Authors
