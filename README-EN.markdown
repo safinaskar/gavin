@@ -64,18 +64,18 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use r
 	boot
 
 * Floppy disks are obsolete. You can boot Gavin from any disk
-* You need very old gcc 3.3.5 or similar
+* You need very old gcc 3.x
 * If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and `orig/qemu-kernel` and `orig/qemu-fs.tar` for Qemu
 * This package content source of `prim` utility in `orig/prim.c` (thanks to IOCCC judges)
 
 How to run deobfuscated Gavin (based on Gavin's comments)?
 ----------------------------------------------------------
 * First, build the kernel and filesystem (just `make`).
-(You can skip this step because the package contents precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and deobfuscated/qemu-kernel and
-deobfuscated/qemu-fs.tar for Qemu.)
+(You can skip this step because the package contents precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and `deobfuscated/qemu-kernel` and
+`deobfuscated/qemu-fs.tar` for Qemu.)
 In short, you need to build this on an x86 GNU/Linux machine.
 If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh`, `vi` and `prim` using a cross-compiler that produces ELF binaries --
-i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc -- 3.3.5 or similar.
+i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc -- 3.x.
 * Next, find a suitable machine to run the OS on. It should be perfectly safe, and since it does not directly attempt to access any hard disk drives
 (only a ramdisk loaded by the bootloader) it should do no damage to your existing setup, BUT I ACCEPT NO LIABILITY FOR ANY DAMAGE DONE BY THIS PROGRAM.
 Run it at your own risk. The OS has been tested on half a dozen machines or so, and worked on all but one. The failure came in the form of the machine rebooting itself midway
@@ -116,6 +116,8 @@ Askar Safin <safinaskar@mail.ru>, Russia -- deobfuscation
 
 Copyright
 ---------
+All sources are in public domain. Docs use following copyright:
+
 Copyright (C) 2004, Landon Curt Noll, Simon Cooper, Peter Seebach
 and Leonid A. Broukhis. All Rights Reserved. Permission for personal,
 educational or non-profit use is granted provided this copyright and

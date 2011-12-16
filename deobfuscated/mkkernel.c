@@ -230,7 +230,7 @@ int syscall(int arg, enum syscallnum_t syscallnum){
 		case SYS_file_size:
 			{
 				const char *fd = (const char *)arg;
-				int result = 0; /* Initial value of `result' is not important. We do `result = 0' to avoid compiler warnings */
+				int result = 0; /* We do `result = 0' to avoid compiler warnings */
 				for(int i = 124; i != 135; ++i){
 					result = (result << 3) | (fd[i] & 7);
 				}

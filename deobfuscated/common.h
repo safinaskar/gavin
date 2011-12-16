@@ -1,5 +1,8 @@
 /* common.h -- common header for all files */
 
+#ifndef _COMMON_H
+#define _COMMON_H
+
 /* Address at which a Linux bootloader loads an x86 kernel image. Also this is pointer to some symbol in the huge string */
 #define START 0x90200
 
@@ -80,3 +83,5 @@ enum syscallnum_t{
 /* render_rectangle(b, t, l, h, w, c) and render_rectangle(b + t * SCREEN_WIDTH + l, 0, 0, h, w, c) are the same */
 void render_rectangle(char *buffer, int top, int left, int height, int width, char color);
 void render_symbol(char *buffer, char symbol, char color);
+
+#endif /* _COMMON_H */

@@ -154,6 +154,7 @@ Other notes
 * I'm not sure OS works with LILO
 * Run `make QEMU=1' if you want to get right colors in Qemu
 * Unused memory contents random data (not zeros)
+* You cannot use C string constants, for example `"string"`
 
 
 Bug fixes
