@@ -85,8 +85,8 @@ Minimum RAM is something like 32MB. PS2 mouse & keyboard required -- no USB I'm 
 graphics card (has been tested on Nvidia, Matrox, and SiS cards).
 * Now you need to use virtual machine (this is simplest way) or a bootloader to load the OS.
 
-** I recommend you Qemu. Just type command `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`. But in this case you must compile Gavin by command `make QEMU=1`.
-** If you run GRUB 2, then at the boot menu simply hit "c" to get a console,
+* * I recommend you Qemu. Just type command `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`. But in this case you must compile Gavin by command `make QEMU=1`.
+* * If you run GRUB 2, then at the boot menu simply hit "c" to get a console,
 then type `linux16 (hd0,1)/<PATH>/kernel` (substituting appropriate harddrive/partition numbers & path), then `initrd16 (hd0,1)/<PATH>/fs.tar`, and finally `boot`.
 
 * Assuming the OS has booted, what can you do now? Well, start by trying `sh`, to open another shell. Then, try `vi mkkernel.c`, to open up the kernel source in a text file viewer
