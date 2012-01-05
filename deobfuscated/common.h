@@ -62,7 +62,7 @@ enum syscallnum_t{
 	/* Allocates memory. Takes size of memory and returns pointer to it. The memory is not filled with zeros */
 	SYS_malloc = 1,
 
-	/* Takes file descriptor (see below) and return file size */
+	/* Takes file descriptor (see below) and returns file size */
 	SYS_file_size,
 
 	/* Takes command line and creates process */
