@@ -49,7 +49,7 @@ This package consists of all information about Gavin you want to know, namely:
 
 How to run original Gavin?
 --------------------------
-Download [it from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (there are winners of the IOCCC 2004).
+Download [it from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (there are also other winners of the IOCCC in this archive).
 
 Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use russian translate `orig/gavin_ru.hint` and `orig/gavin_install_ru.txt` from this package), but note following:
 
