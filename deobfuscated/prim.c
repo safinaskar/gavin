@@ -27,7 +27,7 @@ void _start(struct task_t *my_task, enum msgnum_t msgnum, int arg){
 				*stdout++ = 'a'; *stdout++ = 'n'; *stdout++ = 'y'; *stdout++ = ' ';
 				*stdout++ = 'k'; *stdout++ = 'e'; *stdout++ = 'y';
 
-				render_content((char *)arg + my_task->begin, *content);
+				render_content((unsigned char *)arg + my_task->begin, *content);
 			}
 			break;
 		case msg_key:

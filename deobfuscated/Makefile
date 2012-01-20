@@ -2,7 +2,7 @@ CC = gcc
 LD = ld
 
 # Older versions of GCC have a bug in -O2 optimization, hence -O1
-CFLAGS = -O1
+CFLAGS = -O1 -W -Wall -Wno-unused-parameter -pedantic
 
 QEMU = 0
 MY_FLAGS = -std=c99 -DQEMU=$(QEMU)

@@ -22,7 +22,7 @@ char *open(const char *file_name){
 	return (char *)syscall((int)file_name, SYS_open);
 }
 
-void render_content(char *buffer, const char *content){
+void render_content(unsigned char *buffer, const char *content){
 	/* Frame */
 	render_rectangle(buffer, TITLE_HEIGHT + 8, 4,            LINES * SYMBOL_HEIGHT + 3, COLUMNS * SYMBOL_WIDTH + 2, BLACK);
 

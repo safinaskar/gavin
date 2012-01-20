@@ -19,7 +19,7 @@ void _start(struct task_t *my_task, enum msgnum_t msgnum, int arg){
 			break;
 		case msg_render:
 			(*content)[(LINES - 1) * COLUMNS] = '>';
-			render_content((char *)arg + my_task->begin, *content);
+			render_content((unsigned char *)arg + my_task->begin, *content);
 			break;
 		case msg_key:
 			if(arg == '\n'){

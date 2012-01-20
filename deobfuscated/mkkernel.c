@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
 		head_task = 0;
 
 		/* Setting entry point for system calls. START + 208 is end of huge string and begin of code of `main' function */
-		*(int *)(START) = START + 208 + ((int)syscall - (int)main);
+		*(int *)START = (int)START + 208 + ((int)syscall - (int)main);
 
 		int mouse = (SCREEN_HEIGHT / 2) * SCREEN_WIDTH + SCREEN_WIDTH / 2; /* Position of center of `X' */
 
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]){
 
 				/* in_96_returned & 63 is hardware key code. For example, `q' has code 16, 'w' -- 17, 'e' -- 18 */
 				/* We look at keybord layout which is in the huge string */
-				(*head_task->handler)(head_task, msg_key, *(const char *)(START + 131 + (in_96_returned & 63)));
+				(*head_task->handler)(head_task, msg_key, *(START + 131 + (in_96_returned & 63)));
 
 				draw_all(mouse);
 			}
@@ -183,7 +183,7 @@ int main(int argc, char *argv[]){
 }
 
 /* Renders window `task' and all next windows recursively */
-void render_task(char *buffer, struct task_t *task){
+void render_task(unsigned char *buffer, struct task_t *task){
 	if(task != 0){
 		/* We render front task last */
 		render_task(buffer, task->next);
@@ -204,7 +204,7 @@ void render_task(char *buffer, struct task_t *task){
 }
 
 void draw_all(int mouse){
-	char *buffer = (char *)0x1000000;
+	unsigned char *buffer = (unsigned char *)0x1000000;
 
 	for(int i = 0; i != SCREEN_HEIGHT * SCREEN_WIDTH; ++i){
 		buffer[i] = CYAN;
@@ -215,7 +215,7 @@ void draw_all(int mouse){
 
 	for(int i = 0; i != SCREEN_HEIGHT * SCREEN_WIDTH; ++i){
 		/* Now we write to real video memory */
-		*(*(char *const *)(0x11028) + i) = buffer[i];
+		*(*(unsigned char *const *)(0x11028) + i) = buffer[i];
 	}
 }
 

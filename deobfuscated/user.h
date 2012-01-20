@@ -17,4 +17,4 @@ void create_process(const char *cmdline);
 char *open(const char *file_name);
 
 /* This code renders content of window (black frame, white area and text) */
-void render_content(char *buffer, const char *content);
+void render_content(unsigned char *buffer, const char *content);

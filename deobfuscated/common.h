@@ -4,7 +4,7 @@
 #define _COMMON_H
 
 /* Address at which a Linux bootloader loads an x86 kernel image. Also this is pointer to some symbol in the huge string */
-#define START 0x90200
+#define START ((char *)0x90200)
 
 #define SCREEN_HEIGHT 768
 #define SCREEN_WIDTH 1024
@@ -81,7 +81,7 @@ enum syscallnum_t{
 
 /* `buffer' is pointer to memory which we want to render to */
 /* render_rectangle(b, t, l, h, w, c) and render_rectangle(b + t * SCREEN_WIDTH + l, 0, 0, h, w, c) are the same */
-void render_rectangle(char *buffer, int top, int left, int height, int width, char color);
-void render_symbol(char *buffer, char symbol, char color);
+void render_rectangle(unsigned char *buffer, int top, int left, int height, int width, unsigned char color);
+void render_symbol(unsigned char *buffer, char symbol, unsigned char color);
 
 #endif /* _COMMON_H */
