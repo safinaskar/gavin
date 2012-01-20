@@ -1,10 +1,10 @@
 /* mkkernel.c -- source of kernel and `mkkernel' tool */
 
-#include <stdio.h> /* For putchar */
 #include "common.h"
 
-/* Type of functions `in' and `out' (see below) */
-typedef int (*in_out_t)(int, int, int);
+/* This functions are in huge string. This functions do machine instructions `in' and `out' */
+#define  IN(addr     ) ((*(int  (*)(int     ))(START - 8))(addr     ))
+#define OUT(addr, val) ((*(void (*)(int, int))(START + 8))(addr, val))
 
 void *memory_end; /* End of allocated memory */
 struct task_t *head_task; /* Pointer to front task, head of list */
@@ -14,14 +14,12 @@ int syscall(int arg, enum syscallnum_t syscallnum);
 /* draw_all draws all to real video memory */
 void draw_all(int mouse);
 
+int putchar(int c);
+
 /* This function must be first. Main function for mkkernel and kernel */
 int main(int argc, char *argv[]){
 	if(argc == 0){
 		/* This is real kernel */
-
-		/* This is pointers to functions, which is in huge string. This functions do machine instructions `in' and `out' */
-		in_out_t in = (in_out_t)(START - 8);
-		in_out_t out = (in_out_t)(START + 8);
 
 		memory_end = (void *)0x1100800;
 		head_task = 0;
@@ -31,43 +29,43 @@ int main(int argc, char *argv[]){
 
 		int mouse = (SCREEN_HEIGHT / 2) * SCREEN_WIDTH + SCREEN_WIDTH / 2; /* Position of center of `X' */
 
-		/* Initialization of mouse. I don't understand this code */
+		/* Initialization of keyboard and mouse. I don't understand this code */
 
-		(*out)(100, 209, 0);
+		OUT(100, 209);
 
-		while((*in)(100, 0, 0) & 3){
-			(*in)(96, 0, 0);
+		while(IN(100) & 3){
+			IN(96);
 		}
 
-		(*out)(96, 223, 0);
+		OUT(96, 223);
 
-		while((*in)(100, 0, 0) & 3){
-			(*in)(96, 0, 0);
+		while(IN(100) & 3){
+			IN(96);
 		}
 
-		(*out)(100, 168, 0);
+		OUT(100, 168);
 
-		while((*in)(100, 0, 0) & 3){
-			(*in)(96, 0, 0);
+		while(IN(100) & 3){
+			IN(96);
 		}
 
-		(*out)(96, 0, 0);
+		OUT(96, 0);
 
-		while((*in)(100, 0, 0) & 3){
-			(*in)(96, 0, 0);
+		while(IN(100) & 3){
+			IN(96);
 		}
 
-		(*out)(100, 212, 0);
+		OUT(100, 212);
 
-		while((*in)(100, 0, 0) & 3){
-			(*in)(96, 0, 0);
+		while(IN(100) & 3){
+			IN(96);
 		}
 
-		(*out)(96, 244, 0);
+		OUT(96, 244);
 
-		while(((*in)(100, 0, 0) & 3) == 0);
+		while((IN(100) & 3) == 0);
 
-		(*in)(96, 0, 0);
+		IN(96);
 
 		/* End of initialization */
 
@@ -81,11 +79,11 @@ int main(int argc, char *argv[]){
 
 		for(;;){
 			signed char in_100_returned;
-			while(((in_100_returned = (*in)(100, 0, 0)) & 3) == 0);
-			signed char in_96_returned = (*in)(96, 0, 0);
+			while(((in_100_returned = IN(100)) & 3) == 0);
+			signed char in_96_returned = IN(96);
 
 			if(in_100_returned & 32){
-				int moving = 0; /* We are moving some window. In fact, this is boolean variable */
+				int moving = 0; /* `Are we moving some window?' In fact, this is boolean variable */
 
 				if(in_96_returned & 1){
 					/* Mouse is down, let's resort windows */
@@ -107,20 +105,20 @@ int main(int argc, char *argv[]){
 					}
 				}
 
-				while(((*in)(100, 0, 0) & 3) == 0);
+				while((IN(100) & 3) == 0);
 
 				{
-					int offset = (signed char)(*in)(96, 0, 0);
+					int offset = (signed char)IN(96);
 					mouse += offset;
 					if(moving){
 						head_task->begin += offset;
 					}
 				}
 
-				while(((*in)(100, 0, 0) & 3) == 0);
+				while((IN(100) & 3) == 0);
 
 				{
-					int offset = (signed char)(*in)(96, 0, 0) * SCREEN_WIDTH;
+					int offset = (signed char)IN(96) * SCREEN_WIDTH;
 					mouse -= offset;
 					if(moving){
 						head_task->begin -= offset;
@@ -149,7 +147,8 @@ int main(int argc, char *argv[]){
 		/*
 		 * The huge string contents machine code and data.
 		 * The machine code uses hardware ports, for example 10h for graphical programming.
-		 * Also CPU is switched to 32-bit protected mode (lidt/lgdt/lmsw), but kernel and applications use same address space
+		 * Also CPU is switched to 32-bit protected mode (lidt/lgdt/lmsw), but kernel and applications use same address space.
+		 * I don't fully understand this code.
 		 */
 		const char huge_string[] =
 			/* START - 16  */ "\000\010\020\001\000\000\000\000"
