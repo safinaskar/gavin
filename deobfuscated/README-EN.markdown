@@ -149,7 +149,7 @@ So, if window corners has coordinates (X1, Y1) and (X2, Y2), we will have follow
 Other notes
 -----------
 * Sometimes if I add some variable to kernel code, it will not work. But if I tell to compiler to optimize harder, it will work again. I think kernel's static memory is limited
-* Deobfuscated Gavin is binary compatible with original. So you can run origianal `fs.tar' on top of the deobfuscated `kernel' (and kernel on top of the file system)
+* Deobfuscated Gavin is binary compatible with original. So you can run original `fs.tar' on top of the deobfuscated `kernel' (and vice-versa)
 * `rendering` in code means rendering to a temporary buffer and `drawing` meand real drawing to a screen
 * I'm not sure OS works with LILO
 * Run `make QEMU=1' if you want to get right colors in Qemu
