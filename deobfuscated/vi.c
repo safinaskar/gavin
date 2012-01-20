@@ -3,7 +3,7 @@
 void _start(struct task_t *my_task, enum msgnum_t msgnum, int arg){
 	int *line = (int *)my_task->data; /* Current line */
 	char **content = (char **)(my_task->data + 8); /* Pointer to content of window (as charaster array) */
-	
+
 	switch(msgnum){
 		case msg_init:
 			{
