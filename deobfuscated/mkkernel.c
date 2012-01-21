@@ -78,9 +78,9 @@ int main(int argc, char *argv[]){
 		draw_all(mouse); /* Initial screen update */
 
 		for(;;){
-			int in_100_returned;
+			signed char in_100_returned;
 			while(((in_100_returned = IN(100)) & 3) == 0);
-			int in_96_returned = IN(96);
+			signed char in_96_returned = IN(96);
 
 			if(in_100_returned & 32){
 				int moving = 0; /* `Are we moving some window?' In fact, this is boolean variable */
