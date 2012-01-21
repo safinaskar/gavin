@@ -167,7 +167,7 @@ int main(int argc, char *argv[]){
 			/* START + 195 */ "\146\270\020\000\216\330\216\320\274\360\001\011\000"
 			/* START + 208 */ ;
 
-		/* We use putchar, because huge string content zeros */
+		/* We use putchar, because huge string contents zeros */
 		for(int i = 0; i != 16 + 208; ++i){
 			putchar(huge_string[i]);
 		}
