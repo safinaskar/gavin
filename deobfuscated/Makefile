@@ -17,7 +17,7 @@ all: kernel fs.tar
 kernel: mkkernel
 	./mkkernel > kernel
 mkkernel: mkkernel.o common.o
-	$(CC) -o mkkernel mkkernel.o common.o
+	$(CC) -o mkkernel mkkernel.o common.o # Order doesn't matter
 mkkernel.o: mkkernel.c common.h
 	$(CC) -c $(CFLAGS) $(MY_FLAGS) mkkernel.c
 
@@ -26,6 +26,7 @@ mkkernel.o: mkkernel.c common.h
 fs.tar: $(FS_TAR)
 	tar -cf fs.tar $(FS_TAR)
 
+# Order doesn't matter
 sh: sh.o user.o common.o
 	$(LD) -s -o sh sh.o user.o common.o
 vi: vi.o user.o common.o
