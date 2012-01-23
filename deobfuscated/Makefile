@@ -5,7 +5,7 @@ LD = ld
 CFLAGS = -O1 -W -Wall -Wno-unused-parameter -pedantic
 
 QEMU = 0
-MY_FLAGS = -std=c99 -DQEMU=$(QEMU)
+MY_FLAGS = -fno-hosted -std=c99 -DQEMU=$(QEMU)
 FS_TAR = sh vi prim $(shell echo *.c *.h)
 
 ####
