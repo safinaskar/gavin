@@ -103,6 +103,7 @@ See `deobfuscated/README-EN`.
 Links
 -----
 * http://pdos.csail.mit.edu/6.828/2011/xv6.html - XV6, simple UNIX-like OS. Its size is 277 kilobytes! It is Gavin x 78!
+* http://wiki.osdev.org - wiki about OS development
 
 
 Authors

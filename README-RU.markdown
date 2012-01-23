@@ -109,6 +109,7 @@ Obfuscated C Code Contest/Международодный Конкурс непо
 Ссылки
 ------
 * http://pdos.csail.mit.edu/6.828/2011/xv6.html - XV6, простая UNIX-подобная ОС размером всего 277 килобайт! Это всего лишь в 78 раз больше, чем Gavin!
+* http://wiki.osdev.org - wiki о разработке ОС
 
 
 Авторы
