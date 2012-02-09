@@ -120,6 +120,8 @@ Gavin Barraclough, Flat 20, 83 Newton Street, Manchester, M1 1EP, U.K. -- соз
 
 Аскар Сафин <safinaskar@mail.ru>, Россия -- деобфускация
 
+Сайт: https://github.com/safinaskar/gavin
+
 
 Копирайт
 --------
