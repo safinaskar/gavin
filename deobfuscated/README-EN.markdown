@@ -94,14 +94,14 @@ This is stages of building Gavin:
 * `cc -c vi.c`
 * `cc -c prim.c`
 
-* `cc -o mkkernel mkkernel.c common.o`. Now `mkkernel` is typical GNU/Linux application. It depends on `libc`
+* `cc -o mkkernel mkkernel.c common.o`. Now `mkkernel` is typical GNU/Linux application. It depends on libc
 * `./mkkernel > kernel`. Now `kernel` is kernel of Gavin
-* `ld -s -o sh sh.o user.o common.o`. Now `sh` is Gavin application. It doesn't depend on `libc`
+* `ld -s -o sh sh.o user.o common.o`. Now `sh` is Gavin application. It doesn't depend on libc
 * `ld -s -o vi vi.o user.o common.o`.
 * `ld -s -o prim prim.o user.o common.o`.
 * `tar -cf fs.tar sh vi prim ...`
 
-`mkkernel` (of course) has entry point `_start` (which placed in `libc`). `_start` permorms some initialization, for example. it opens `stdout`. Then it call `main` (`main` placed in `mkkernel.c`).
+`mkkernel` (of course) has entry point `_start` (which placed in libc). `_start` permorms some initialization, for example. it opens `stdout`. Then it call `main` (`main` placed in `mkkernel.c`).
 `main` checks `argc == 0`. If `argc != 0` we are in GNU/Linux. In this case we write kernel code to stdout. At first we write some machine code and other data which placed in string
 called "huge string". Then we write `mkkernel` code directly from memory. So `kernel` will content a large piece of code from `mkkernel`. This meant that kernel will content same `main` function.
 
@@ -131,7 +131,7 @@ The second argument of application's `_start` is message number. There are 3 mes
 ------------------
 Kernel uses C structure `task_t` to represent all information about task. Also, applications can use part of the structure (field `data`) to save its own data.
 There is no another way to store static information between different `_start` calls. There is single-linked list of this structures,
-and kernel's variable `head_task` is begin of this list. `task_t' has field `handler', which is pointer to `_start' of process. If kernel calls `handler', it will pass pointer to task
+and kernel's variable `head_task` is begin of this list. `task_t` has field `handler`, which is pointer to `_start` of process. If kernel calls `handler`, it will pass pointer to task
 structure as the first argument.
 
 
@@ -149,10 +149,10 @@ So, if window corners has coordinates (X1, Y1) and (X2, Y2), we will have follow
 Other notes
 -----------
 * Sometimes if I add some variable to kernel code, it will not work. But if I tell to compiler to optimize harder, it will work again. I think kernel's static memory is limited
-* Deobfuscated Gavin is binary compatible with original. So you can run original `fs.tar' on top of the deobfuscated `kernel' (and vice-versa)
+* Deobfuscated Gavin is binary compatible with original. So you can run original `fs.tar` on top of the deobfuscated `kernel` (and vice-versa)
 * `rendering` in code means rendering to a temporary buffer and `drawing` meand real drawing to a screen
 * I'm not sure OS works with LILO
-* Run `make QEMU=1' if you want to get right colors in Qemu
+* Run `make QEMU=1` if you want to get right colors in Qemu
 * Unused memory contents random data (not zeros)
 * You cannot use C string constants, for example `"string"`
 
