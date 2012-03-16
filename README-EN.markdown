@@ -1,6 +1,6 @@
 What is Gavin?
 --------------
-In 2004 Gavin Barraclough created multitasking operating system with GUI, filesystem and mouse support (the OS has no name, so I will call it Gavin).
+In 2004 Gavin Barraclough created multitasking operating system for x86 with GUI, filesystem and mouse support (the OS has no name, so I will call it Gavin).
 It is written in C, it has only one source file and this file has size 3.5 kilobytes!
 Then Gavin sent OS to [IOCCC](http://www.ioccc.org/) (the International Obfuscated C Code Contest) and won. Of course, code is very obfuscated, for example:
 
@@ -16,7 +16,7 @@ Then Gavin sent OS to [IOCCC](http://www.ioccc.org/) (the International Obfuscat
 			U (Y (t + 28) + j / 8 + 64 * Y (t + 20)), 0);
 	}
 
-In 2011 this code was deobfuscated and commented. For example, this is same code:
+In 2011 I deobfuscated and commented this code. For example, this is same code:
 
 	case msg_render:
 		/* This code draws content of window (black frame, white area and text) */
@@ -102,7 +102,7 @@ See `deobfuscated/README-EN`.
 
 Links
 -----
-* http://pdos.csail.mit.edu/6.828/2011/xv6.html - XV6, simple UNIX-like OS. Its size is 277 kilobytes! It is Gavin x 78!
+* http://pdos.csail.mit.edu/6.828/2011/xv6.html - XV6, simple UNIX-like OS. Its source has size 277 kilobytes! It is Gavin x 78!
 * http://wiki.osdev.org - wiki about OS development
 
 
