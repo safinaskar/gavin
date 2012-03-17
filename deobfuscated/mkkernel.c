@@ -139,8 +139,8 @@ int main(int argc, char *argv[]){
 	}else{
 		/* This is `mkkernel' tool */
 
-		/* The first 496 bytes of kernel may be any symbols */
-		for(int i = 0; i != 496; ++i){
+		/* The first 0x1f0 bytes of kernel may be any symbols */
+		for(int i = 0; i != 0x1f0; ++i){
 			putchar(0);
 		}
 
@@ -166,12 +166,12 @@ int main(int argc, char *argv[]){
 			/* START + 0xd0 */ ;
 
 		/* We use putchar, because huge string contents zeros */
-		for(int i = 0; i != 16 + 208; ++i){
+		for(int i = 0; i != 0x10 + 0xd0; ++i){
 			putchar(huge_string[i]);
 		}
 
 		/* We write our code to stdout */
-		for(int i = 0; i != 3888; ++i){
+		for(int i = 0; i != 0xf30; ++i){
 			putchar(*(const char *)((int)main + (int)i));
 		}
 	}

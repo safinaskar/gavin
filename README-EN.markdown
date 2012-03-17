@@ -1,6 +1,6 @@
 What is Gavin?
 --------------
-In 2004 Gavin Barraclough created multitasking operating system for x86 with GUI, filesystem and mouse support (the OS has no name, so I will call it Gavin).
+In 2004 Gavin Barraclough created multitasking operating system for i386 with GUI, filesystem and mouse support (the OS has no name, so I will call it Gavin).
 It is written in C, it has only one source file and this file has size 3.5 kilobytes!
 Then Gavin sent OS to [IOCCC](http://www.ioccc.org/) (the International Obfuscated C Code Contest) and won. Of course, code is very obfuscated, for example:
 
@@ -64,7 +64,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use r
 	boot
 
 * Floppy disks are obsolete. You can boot Gavin from any disk
-* You need very old gcc 3.x
+* You need very old gcc 3.x (you need 32-bit gcc, but you can run it on 32-bit or 64-bit OS)
 * If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and `orig/qemu-kernel` and `orig/qemu-fs.tar` for Qemu
 * This package content source of `prim` utility in `orig/prim.c` (thanks to IOCCC judges)
 
@@ -73,7 +73,7 @@ How to run deobfuscated Gavin (based on Gavin's comments)?
 * First, build the kernel and filesystem (just `make`).
 (You can skip this step because the package contents precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and `deobfuscated/qemu-kernel` and
 `deobfuscated/qemu-fs.tar` for Qemu.)
-In short, you need to build this on an x86 GNU/Linux machine.
+In short, you need to build this on an x86 GNU/Linux machine (GNU/Linux can be 32-bit or 64-bit, but gcc must be 32-bit)
 If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh`, `vi` and `prim` using a cross-compiler that produces ELF binaries --
 i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc -- 3.x.
 * Next, find a suitable machine to run the OS on. It should be perfectly safe, and since it does not directly attempt to access any hard disk drives
