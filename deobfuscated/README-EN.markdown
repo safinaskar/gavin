@@ -103,7 +103,7 @@ This is stages of building Gavin:
 
 `mkkernel` (of course) has entry point `_start` (which placed in libc). `_start` permorms some initialization, for example. it opens `stdout`. Then it call `main` (`main` placed in `mkkernel.c`).
 `main` checks `argc == 0`. If `argc != 0` we are in GNU/Linux. In this case we write kernel code to stdout. At first we write some machine code and other data which placed in string
-called "huge string". Then we write `mkkernel` code directly from memory. So `kernel` will content a large piece of code from `mkkernel`. This meant that kernel will content same `main` function.
+called "huge string". Then we write `mkkernel` code directly from memory. So `kernel` will content a large piece of code from `mkkernel`. This means that kernel will content same `main` function.
 
 Let's assume we are booting kernel. At first kernel executes the machine code. Then it executes the code from `main` (now `main` is entry point to C code, not `_start`).
 And it again checks `argc == 0`. But now we are on a real hardware, so `argc` really equals to zero. Therefore we perform kernel booting sequence.
@@ -113,7 +113,7 @@ And it again checks `argc == 0`. But now we are on a real hardware, so `argc` re
 
 System calls and messages
 -------------------------
-If kernel wants to say something to user application, it will send message to it. If application -- it will send system call to kernel.
+If kernel wants to say something to user application, it will send message to it. If application wants, it will send system call to kernel.
 
 Kernel has function `syscall`. At first kernel takes address of this function and puts it to first 4 bytes from START. If application need syscall it will get value from this 4 bytes,
 convert it to function pointer and call.
@@ -148,7 +148,7 @@ So, if window corners has coordinates (X1, Y1) and (X2, Y2), we will have follow
 
 Other notes
 -----------
-* Sometimes if I add some variable to kernel code, it will not work. But if I tell to compiler to optimize harder, it will work again. I think kernel's static memory is limited
+* Sometimes if I add some variable to kernel code, the OS will not work. But if I tell to compiler to optimize harder, it will work again. I think kernel's static memory is limited
 * Deobfuscated Gavin is binary compatible with original. So you can run original `fs.tar` on top of the deobfuscated `kernel` (and vice-versa)
 * `rendering` in code means rendering to a temporary buffer and `drawing` meand real drawing to a screen
 * I'm not sure OS works with LILO
