@@ -1,4 +1,4 @@
-/* user.h -- coomon code for all user-space applications */
+/* user.h - coomon code for all user-space applications */
 
 #include "common.h"
 

@@ -1,3 +1,6 @@
+<!-- BEGIN OF TABLE -->
+<!-- END OF TABLE -->
+
 What is Gavin?
 --------------
 In 2004 Gavin Barraclough created multitasking operating system for i386 with GUI, filesystem and mouse support (the OS has no name, so I will call it Gavin).
@@ -54,7 +57,7 @@ Download [it from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (there 
 Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use russian translate `orig/gavin_ru.hint` and `orig/gavin_install_ru.txt` from this package), but note following:
 
 * If you want to build only Gavin, type `make gavin`
-* The most simple way to run Gavin is Qemu. At first try to use Qemu, then -- other methods
+* The most simple way to run Gavin is Qemu. At first try to use Qemu, then - other methods
 * To boot from Qemu type `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null` (of course, you need to build Gavin first)
 * You will get strange colors in Qemu
 * LILO is obsolete. You don't need files `lilo.conf` and `boot.b`. Use any modern Linux loader. I would recommend GRUB 2. If you have GRUB 2, press "c" while booting and type:
@@ -75,13 +78,13 @@ How to run deobfuscated Gavin (based on Gavin's comments)?
 `deobfuscated/qemu-fs.tar` for Qemu.)
 In short, you need to build this on an x86 GNU/Linux machine.
 If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh`, `vi` and `prim` using a cross-compiler that produces ELF binaries --
-i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc -- 3.x (you need 32-bit gcc, but you can run it on 32-bit or 64-bit OS).
+i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc - 3.x (you need 32-bit gcc, but you can run it on 32-bit or 64-bit OS).
 * Next, find a suitable machine to run the OS on. It should be perfectly safe, and since it does not directly attempt to access any hard disk drives
 (only a ramdisk loaded by the bootloader) it should do no damage to your existing setup, BUT I ACCEPT NO LIABILITY FOR ANY DAMAGE DONE BY THIS PROGRAM.
 Run it at your own risk. The OS has been tested on half a dozen machines or so, and worked on all but one. The failure came in the form of the machine rebooting itself midway
 through loading the OS, with no nasty side-effects.
-* Hardware requirements -- i386 or better processor, but the GUI is surprisingly power-hungry, so I would recommend a fast processor (has been tested on Pentium 3/Pentium 4/Athlon machines).
-Minimum RAM is something like 32MB. PS2 mouse & keyboard required -- no USB I'm afraid. Uses Vesa VBE 3.0, so should work on any modern
+* Hardware requirements - i386 or better processor, but the GUI is surprisingly power-hungry, so I would recommend a fast processor (has been tested on Pentium 3/Pentium 4/Athlon machines).
+Minimum RAM is something like 32MB. PS2 mouse & keyboard required - no USB I'm afraid. Uses Vesa VBE 3.0, so should work on any modern
 graphics card (has been tested on Nvidia, Matrox, and SiS cards).
 * Now you need to use virtual machine (this is simplest way) or a bootloader to load the OS.
 
@@ -92,7 +95,7 @@ then type `linux16 (hd0,1)/<PATH>/kernel` (substituting appropriate harddrive/pa
 * Assuming the OS has booted, what can you do now? Well, start by trying `sh`, to open another shell. Then, try `vi mkkernel.c`, to open up the kernel source in a text file viewer
 (up/down or PgUp/PgDown to scroll). Also try `prim`. Note that all provided applications have windows of the same size, and that open in the top left corner of the screen,
 so you may need drag the windows around a bit to tell them apart.
-* To shut down -- just hit the power button. :-)
+* To shut down - just hit the power button. :-)
 
 
 How deobfuscated Gavin works?
@@ -106,15 +109,9 @@ Links
 * http://wiki.osdev.org - wiki about OS development
 
 
-Authors
--------
-Gavin Barraclough, Flat 20, 83 Newton Street, Manchester, M1 1EP, U.K. -- creation of OS
-
-IOCCC 2004 judges -- writing `prim` program
-
-Askar Safin <safinaskar@mail.ru>, Russia -- deobfuscation
-
-Site: https://github.com/safinaskar/gavin
+Site
+----
+https://github.com/safinaskar/gavin
 
 
 Copyright

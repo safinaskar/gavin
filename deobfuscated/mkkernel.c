@@ -1,4 +1,4 @@
-/* mkkernel.c -- source of kernel and `mkkernel' tool */
+/* mkkernel.c - source of kernel and `mkkernel' tool */
 
 #include "common.h"
 
@@ -129,7 +129,7 @@ int main(int argc, char *argv[]){
 			}else if((in_96_returned & 128) == 0){
 				/* Keyboard */
 
-				/* in_96_returned & 63 is hardware key code. For example, `q' has code 16, 'w' -- 17, 'e' -- 18 */
+				/* in_96_returned & 63 is hardware key code. For example, `q' has code 16, 'w' - 17, 'e' - 18 */
 				/* We look at keybord layout which is in the huge string */
 				(*head_task->handler)(head_task, msg_key, *(START + 131 + (in_96_returned & 63)));
 

@@ -1,4 +1,4 @@
-/* common.h -- common header for all files */
+/* common.h - common header for all files */
 
 #ifndef _COMMON_H
 #define _COMMON_H

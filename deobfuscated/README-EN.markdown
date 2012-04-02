@@ -18,7 +18,7 @@ the application's own use.
 The program compiles into a tool to build a kernel image,
 so having built the program, the makefile will run it,
 piping the output into a file called `kernel`.
-The makefile will then proceed to build a root filesystem image -- a tar file
+The makefile will then proceed to build a root filesystem image - a tar file
 (the filesystem format supported by the OS is the tar-file format).
 
 Known "features".
@@ -31,7 +31,7 @@ If it goes off the top or bottom, it will go and corrupt some memory.
 
 The file system is kinda optimistic about matching names, so,
 for example if you type the command `shell` into a command-line
-it will execute the program `sh` -- close enough a match for it.
+it will execute the program `sh` - close enough a match for it.
 
 The elf binaries are not loaded at the correct address,
 and their entry point must be the start address of the text segment.
@@ -50,10 +50,10 @@ to allow C code to be run. On top of this there are also about
 a dozen instructions to switch the video card into graphics mode.
 All in all, a relatively tiny number of instructions next to
 the size of the C program. Also, the string is mostly composed
-of data -- a Linux-esque kernel header for the bootloader,
+of data - a Linux-esque kernel header for the bootloader,
 protected mode descriptor tables, keyboard maps, etc.
 (I should also mention that it contains mini functions
-to perform an x86 `in` and `out` instruction -- to allow
+to perform an x86 `in` and `out` instruction - to allow
 the keyboard & mouse to be driven from C code).
 
 Porting to another architecture should be relatively easy* --
@@ -74,16 +74,16 @@ OS consists of two components:
 * File system
 
 OS supports only one file system type: tar archive, which is loaded as initramfs. Gavin cannot access to hard disk.
-Kernel places in the file `kernel`, file system -- in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator) and some text files, which can be browsed by `vi`.
+Kernel places in the file `kernel`, file system - in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator) and some text files, which can be browsed by `vi`.
 
-Originally OS had only one source file -- `prog.c`. Then IOCCC judges renamed it to `gavin.c`. Then it was splited into following files:
+Originally OS had only one source file - `prog.c`. Then IOCCC judges renamed it to `gavin.c`. Then it was splited into following files:
 
-* `common.h` and `common.c` -- some common code
-* `mkkernel.c` -- kernel
-* `user.h` and `user.c` -- common code for user application
-* `sh.c` -- shell
-* `vi.c` -- text viewer
-* `prim.c` -- prime numbers generator
+* `common.h` and `common.c` - some common code
+* `mkkernel.c` - kernel
+* `user.h` and `user.c` - common code for user application
+* `sh.c` - shell
+* `vi.c` - text viewer
+* `prim.c` - prime numbers generator
 
 This is stages of building Gavin:
 
@@ -118,7 +118,7 @@ If kernel wants to say something to user application, it will send message to it
 Kernel has function `syscall`. At first kernel takes address of this function and puts it to first 4 bytes from START. If application need syscall it will get value from this 4 bytes,
 convert it to function pointer and call.
 
-Every user application has only one function -- `_start`. This is entry point. But `_start` isn't executed from the start of application to its end.
+Every user application has only one function - `_start`. This is entry point. But `_start` isn't executed from the start of application to its end.
 Instead, kernel call `_start` several times: at the start of application, at the key press, etc. So, `_start` is not similar to usual "main" function in typical programs. `_start` is
 message handler. If kernel need to say something to program, it calls `_start` of this program with some arguments.
 

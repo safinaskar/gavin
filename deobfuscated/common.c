@@ -1,4 +1,4 @@
-/* common.c -- common functions for kernel and user-space programs */
+/* common.c - common functions for kernel and user-space programs */
 
 #include "common.h"
 
