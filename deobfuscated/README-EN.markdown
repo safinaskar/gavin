@@ -3,7 +3,7 @@ Introduction (based on Gavin's comments)
 This is a 32-bit multitasking operating system for x86 computers,
 with GUI and filesystem, support for loading and executing user
 applications in elf binary format, with ps2 mouse and keyboard drivers,
-and vesa graphics. And a command shell. And an application --
+and vesa graphics. And a command shell. And an application -
 a simple text-file viewer.
 
 The OS has ended up as a traditional monolith with one entry point
@@ -56,7 +56,7 @@ protected mode descriptor tables, keyboard maps, etc.
 to perform an x86 `in` and `out` instruction - to allow
 the keyboard & mouse to be driven from C code).
 
-Porting to another architecture should be relatively easy* --
+Porting to another architecture should be relatively easy* -
 the string simply needs be replaced with one containing
 data & code suitable for the new target platform.
 Accesses to data in the string are made relative to the define `START`,

@@ -60,7 +60,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use r
 * The most simple way to run Gavin is Qemu. At first try to use Qemu, then - other methods
 * To boot from Qemu type `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null` (of course, you need to build Gavin first)
 * You will get strange colors in Qemu
-* LILO is obsolete. You don't need files `lilo.conf` and `boot.b`. Use any modern Linux loader. I would recommend GRUB 2. If you have GRUB 2, press "c" while booting and type:
+* LILO is obsolete. You don't need files `lilo.conf` and `boot.b`. Use any modern Linux loader. I would recommend GRUB 2 (but don't use too modern bootloader: GRUB 1.98 works, but GRUB 1.99 doesn't work). If you have GRUB 2, press "c" while booting and type:
 
 	linux16 /path/to/kernel
 	initrd16 /path/to/fs.tar
@@ -77,7 +77,7 @@ How to run deobfuscated Gavin (based on Gavin's comments)?
 (You can skip this step because the package contents precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and `deobfuscated/qemu-kernel` and
 `deobfuscated/qemu-fs.tar` for Qemu.)
 In short, you need to build this on an x86 GNU/Linux machine.
-If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh`, `vi` and `prim` using a cross-compiler that produces ELF binaries --
+If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh`, `vi` and `prim` using a cross-compiler that produces ELF binaries -
 i.e. a cross-compiler targeting x86 GNU/Linux. Also, you need very old version of gcc - 3.x (you need 32-bit gcc, but you can run it on 32-bit or 64-bit OS).
 * Next, find a suitable machine to run the OS on. It should be perfectly safe, and since it does not directly attempt to access any hard disk drives
 (only a ramdisk loaded by the bootloader) it should do no damage to your existing setup, BUT I ACCEPT NO LIABILITY FOR ANY DAMAGE DONE BY THIS PROGRAM.
@@ -88,8 +88,8 @@ Minimum RAM is something like 32MB. PS2 mouse & keyboard required - no USB I'm a
 graphics card (has been tested on Nvidia, Matrox, and SiS cards).
 * Now you need to use virtual machine (this is simplest way) or a bootloader to load the OS.
 
- * I recommend you Qemu. Just type command `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`. But in this case you must compile Gavin by command `make QEMU=1`.
- * If you run GRUB 2, then at the boot menu simply hit "c" to get a console,
+ * Virtual machine. I recommend you Qemu. Just type command `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`. But in this case you must compile Gavin by command `make QEMU=1`.
+ * Bootloader (GRUB 2). Don't use too modern bootloader: GRUB 1.98 works, but GRUB 1.99 doesn't work. At the boot menu simply hit "c" to get a console,
 then type `linux16 (hd0,1)/<PATH>/kernel` (substituting appropriate harddrive/partition numbers & path), then `initrd16 (hd0,1)/<PATH>/fs.tar`, and finally `boot`.
 
 * Assuming the OS has booted, what can you do now? Well, start by trying `sh`, to open another shell. Then, try `vi mkkernel.c`, to open up the kernel source in a text file viewer
