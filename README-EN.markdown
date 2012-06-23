@@ -69,7 +69,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use r
 * Floppy disks are obsolete. You can boot Gavin from any disk
 * You need very old gcc 3.x (you need 32-bit gcc, but you can run it on 32-bit or 64-bit OS)
 * If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and `orig/qemu-kernel` and `orig/qemu-fs.tar` for Qemu
-* This package content source of `prim` utility in `orig/prim.c` (thanks to IOCCC judges)
+* This package contents source of `prim` utility in `orig/prim.c` (thanks to IOCCC judges)
 
 How to run deobfuscated Gavin (based on Gavin's comments)?
 ----------------------------------------------------------
