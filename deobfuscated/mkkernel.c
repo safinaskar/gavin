@@ -165,7 +165,7 @@ int main(int argc, char *argv[]){
 			/* START + 0xc3 */             "\x66\xb8\x10\x00\x8e\xd8\x8e\xd0\xbc\xf0\x01\x09\x00"
 			/* START + 0xd0 */ ;
 
-		/* We use putchar, because huge string contents zeros */
+		/* We use putchar, because the huge string contents zeros */
 		for(int i = 0; i != 0x10 + 0xd0; ++i){
 			putchar(huge_string[i]);
 		}
