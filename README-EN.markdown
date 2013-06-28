@@ -54,7 +54,7 @@ How to run original Gavin?
 --------------------------
 Download [it from the IOCCC site](http://www.ioccc.org/2004/2004.tar.gz) (there are also other winners of the IOCCC in this archive).
 
-Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use russian translate `orig/gavin_ru.hint` and `orig/gavin_install_ru.txt` from this package), but note following:
+Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use russian translation `orig/gavin_ru.hint` and `orig/gavin_install_ru.txt` from this package), but note following:
 
 * If you want to build only Gavin, type `make gavin`
 * The most simple way to run Gavin is Qemu. At first try to use Qemu, then - other methods

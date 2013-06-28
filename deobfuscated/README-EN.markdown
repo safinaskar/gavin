@@ -150,7 +150,7 @@ Other notes
 -----------
 * Sometimes if I add some variable to kernel code, the OS will not work. But if I tell to compiler to optimize harder, it will work again. I think kernel's static memory is limited
 * Deobfuscated Gavin is binary compatible with original. So you can run original `fs.tar` on top of the deobfuscated `kernel` (and vice-versa)
-* `rendering` in code means rendering to a temporary buffer and `drawing` meand real drawing to a screen
+* `rendering` in code means rendering to a temporary buffer and `drawing` means real drawing to a screen
 * I'm not sure OS works with LILO
 * Run `make QEMU=1` if you want to get right colors in Qemu
 * Unused memory contents random data (not zeros)

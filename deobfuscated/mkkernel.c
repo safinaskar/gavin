@@ -280,9 +280,11 @@ int syscall(int arg, enum syscallnum_t syscallnum){
 
 					fd += (syscall((int)fd, SYS_file_size) + 1023) / 512 * 512;
 				}
+
+				/* NOTREACHED */
 			}
 	}
 
-	/* Not reached. I added this `return' to avoid compiler warnings */
+	/* NOTREACHED. I added this `return' to avoid compiler warnings */
 	return 0;
 }
