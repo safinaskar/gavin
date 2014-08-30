@@ -58,7 +58,7 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use r
 
 * If you want to build only Gavin, type `make gavin`
 * The most simple way to run Gavin is Qemu. At first try to use Qemu, then - other methods
-* To boot from Qemu type `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null` (of course, you need to build Gavin first)
+* To boot from Qemu type `qemu -m 256 -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null` (of course, you need to build Gavin first)
 * You will get strange colors in Qemu
 * LILO is obsolete. You don't need files `lilo.conf` and `boot.b`. Use any modern Linux loader. I would recommend GRUB 2 (but don't use too modern bootloader: GRUB 1.98 works, but GRUB 1.99 doesn't work). If you have GRUB 2, press "c" while booting and type:
 
@@ -88,7 +88,7 @@ Minimum RAM is something like 32MB. PS2 mouse & keyboard required - no USB I'm a
 graphics card (has been tested on Nvidia, Matrox, and SiS cards).
 * Now you need to use virtual machine (this is simplest way) or a bootloader to load the OS.
 
- * Virtual machine. I recommend you Qemu. Just type command `qemu -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`. But in this case you must compile Gavin by command `make QEMU=1`.
+ * Virtual machine. I recommend you Qemu. Just type command `qemu -m 256 -kernel /path/to/kernel -initrd /path/to/fs.tar /dev/null`. But in this case you must compile Gavin by command `make QEMU=1`.
  * Bootloader (GRUB 2). Don't use too modern bootloader: GRUB 1.98 works, but GRUB 1.99 doesn't work. At the boot menu simply hit "c" to get a console,
 then type `linux16 (hd0,1)/<PATH>/kernel` (substituting appropriate harddrive/partition numbers & path), then `initrd16 (hd0,1)/<PATH>/fs.tar`, and finally `boot`.
 
