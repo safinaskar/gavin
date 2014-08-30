@@ -52,4 +52,4 @@ common.o: common.c common.h
 ####
 
 clean:
-	rm -f kernel mkkernel fs.tar sh vi prim *.o
+	rm -f kernel mkkernel fs.tar sh vi prim ./*.o
