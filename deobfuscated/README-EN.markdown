@@ -74,7 +74,7 @@ OS consists of two components:
 * File system
 
 OS supports only one file system type: tar archive, which is loaded as initramfs. Gavin cannot access to hard disk.
-Kernel places in the file `kernel`, file system - in `fs.tar`. `fs.tar` contents `sh` (shell), `vi` (text viewer), `prim` (prime number generator) and some text files, which can be browsed by `vi`.
+Kernel is located in the file `kernel`, file system - in `fs.tar`. `fs.tar` contains `sh` (shell), `vi` (text viewer), `prim` (prime number generator) and some text files, which can be browsed by `vi`.
 
 Originally OS had only one source file - `prog.c`. Then IOCCC judges renamed it to `gavin.c`. Then it was splited into following files:
 
@@ -103,7 +103,7 @@ This is stages of building Gavin:
 
 `mkkernel` (of course) has entry point `_start` (which placed in libc). `_start` permorms some initialization, for example. it opens `stdout`. Then it call `main` (`main` placed in `mkkernel.c`).
 `main` checks `argc == 0`. If `argc != 0` we are in GNU/Linux. In this case we write kernel code to stdout. At first we write some machine code and other data which placed in string
-called "huge string". Then we write `mkkernel` code directly from memory. So `kernel` will content a large piece of code from `mkkernel`. This means that kernel will content same `main` function.
+called "huge string". Then we write `mkkernel` code directly from memory. So `kernel` will contain a large piece of code from `mkkernel`. This means that kernel will contain same `main` function.
 
 Let's assume we are booting kernel. At first kernel executes the machine code. Then it executes the code from `main` (now `main` is entry point to C code, not `_start`).
 And it again checks `argc == 0`. But now we are on a real hardware, so `argc` really equals to zero. Therefore we perform kernel booting sequence.
@@ -153,7 +153,7 @@ Other notes
 * `rendering` in code means rendering to a temporary buffer and `drawing` means real drawing to a screen
 * I'm not sure OS works with LILO
 * Run `make QEMU=1` if you want to get right colors in Qemu
-* Unused memory contents random data (not zeros)
+* Unused memory contains random data (not zeros)
 * You cannot use C string constants, for example `"string"`
 
 
@@ -161,7 +161,7 @@ Bug fixes
 ---------
 * PgUp and PgDn do right function
 * You don't need to move the mouse to trigger the initial screen update in Qemu
-* vi doesn't fail because of non-ASCII charasters
+* vi doesn't fail because of non-ASCII characters
 * vi works correctly with big files
 * You will get right colors in Qemu
 * You can name `sh` and `vi` as you want. Names are not significant.

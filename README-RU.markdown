@@ -25,7 +25,7 @@ Obfuscated C Code Contest/Международный Конкурс непоня
 		/* This code draws content of window (black frame, white area and text) */
 		{
 			char *dest = (char *)arg;
-			if(shell){
+			if (shell){
 				(*content)[(LINES - 1) * COLUMNS] = '>';
 			}
 			/* Frame */
@@ -33,8 +33,8 @@ Obfuscated C Code Contest/Международный Конкурс непоня
 			/* Area */
 			draw_rectangle(dest + my_task->begin, CONTENT_TOP,      CONTENT_LEFT, LINES * SYMBOL_HEIGHT + 1, COLUMNS * SYMBOL_WIDTH,     WHITE);
 			/* Text */
-			for(int i = 0; i != LINES; ++i){
-				for(int j = 0; j != COLUMNS; ++j){
+			for (int i = 0; i != LINES; ++i){
+				for (int j = 0; j != COLUMNS; ++j){
 					draw_symbol(dest + my_task->begin + (CONTENT_TOP + i * SYMBOL_HEIGHT) * SCREEN_WIDTH + CONTENT_LEFT + j * SYMBOL_WIDTH, (*content)[(*line + i) * COLUMNS + j], BLACK);
 				}
 			}

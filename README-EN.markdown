@@ -25,7 +25,7 @@ In 2011 I deobfuscated and commented this code. For example, this is same code:
 		/* This code draws content of window (black frame, white area and text) */
 		{
 			char *dest = (char *)arg;
-			if(shell){
+			if (shell){
 				(*content)[(LINES - 1) * COLUMNS] = '>';
 			}
 			/* Frame */
@@ -33,8 +33,8 @@ In 2011 I deobfuscated and commented this code. For example, this is same code:
 			/* Area */
 			draw_rectangle(dest + my_task->begin, CONTENT_TOP,      CONTENT_LEFT, LINES * SYMBOL_HEIGHT + 1, COLUMNS * SYMBOL_WIDTH,     WHITE);
 			/* Text */
-			for(int i = 0; i != LINES; ++i){
-				for(int j = 0; j != COLUMNS; ++j){
+			for (int i = 0; i != LINES; ++i){
+				for (int j = 0; j != COLUMNS; ++j){
 					draw_symbol(dest + my_task->begin + (CONTENT_TOP + i * SYMBOL_HEIGHT) * SCREEN_WIDTH + CONTENT_LEFT + j * SYMBOL_WIDTH, (*content)[(*line + i) * COLUMNS + j], BLACK);
 				}
 			}
@@ -69,12 +69,12 @@ Then follow instructions in files `gavin.hint` and `gavin_install.txt` (or use r
 * Floppy disks are obsolete. You can boot Gavin from any disk
 * You need very old gcc 3.x (you need 32-bit gcc, but you can run it on 32-bit or 64-bit OS)
 * If you cannot compile Gavin use precompiled `orig/kernel` and `orig/fs.tar` from this package for real hardware and `orig/qemu-kernel` and `orig/qemu-fs.tar` for Qemu
-* This package contents source of `prim` utility in `orig/prim.c` (thanks to IOCCC judges)
+* This package contains source of `prim` utility in `orig/prim.c` (thanks to IOCCC judges)
 
 How to run deobfuscated Gavin (based on Gavin's comments)?
 ----------------------------------------------------------
 * First, build the kernel and filesystem (just `make`).
-(You can skip this step because the package contents precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and `deobfuscated/qemu-kernel` and
+(You can skip this step because the package contains precompiled `deobfuscated/kernel` and `deobfuscated/fs.tar` for real hardware and `deobfuscated/qemu-kernel` and
 `deobfuscated/qemu-fs.tar` for Qemu.)
 In short, you need to build this on an x86 GNU/Linux machine.
 If you wish to try to compile on an OS other than GNU/Linux you may need modify the Makefile to compile `sh`, `vi` and `prim` using a cross-compiler that produces ELF binaries -
