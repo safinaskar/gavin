@@ -192,7 +192,7 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-/* Renders window "task" and all next windows recursively */
+/* Renders window "task" and all following windows recursively */
 void render_task(unsigned char *buffer, struct task_t *task)
 {
   if (task != 0){
